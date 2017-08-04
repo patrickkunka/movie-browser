@@ -12,6 +12,6 @@ const app = new App({
 
 app.start(window.location.pathname + window.location.search)
     .then(() => {
-        console.log(app.stateManager.getState());
+        console.log(app.stateManager.getState(), app.root);
     })
     .catch(err => console.error(err));

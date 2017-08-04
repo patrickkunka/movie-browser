@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "test": "mocha --compilers babel-register ./test/unit.js",
-    "build": "./node_modules/.bin/webpack"
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack --watch"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

@@ -30,6 +30,8 @@ export const navigateToSearch = (request) => () => {
  */
 
 export const navigateToMovie = (request) => () => {
+    const slug = request.params.slug;
+
     return Promise.resolve()
         .then(() => {
             return {

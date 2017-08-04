@@ -7,7 +7,6 @@ class Component {
         this.props        = {};
         this.state        = null;
         this.bindings     = [];
-        this.isMounted    = false;
 
         this.receiveData(state, parent);
     }

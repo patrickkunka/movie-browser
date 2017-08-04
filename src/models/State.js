@@ -1,7 +1,7 @@
 import {
     VIEW_MOVIE,
     VIEW_SEARCH
-} from './constants';
+} from '../constants';
 
 import Results from './Results';
 
