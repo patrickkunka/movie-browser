@@ -2,10 +2,6 @@ import LayoutItem from './LayoutItem';
 import Component  from './Component';
 
 class Renderer {
-    constructor(root) {
-        this.root = Renderer.buildTreeFromNode(root);
-    }
-
     /**
      * @param  {object}     state
      * @param  {object}     parent

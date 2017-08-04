@@ -1,36 +1,20 @@
 import ConfigApp    from './ConfigApp';
 import Router       from './Router';
 import StateManager from './StateManager';
+import Renderer     from './Renderer';
+import Navigator    from './Navigator';
 
 class App {
     constructor(options={}) {
-        this.config       = new ConfigApp();
-        this.router       = null;
-        this.stateManager = null;
-        this.navigator    = null;
-        this.renderer     = null;
+        this.config       = Object.assign(new ConfigApp(), options);
+        this.router       = new Router(this.config.routes);
+        this.stateManager = new StateManager(this.router, this.config.reducer);
+        this.renderer     = new Renderer(this.config.layout);
+        this.navigator    = new Navigator();
+
+        this.root = Renderer.buildTreeFromNode(this.config.layout);
 
         Object.seal(this);
-
-        this.init(options);
-    }
-
-    /**
-     * Merges consumer-provided components and initialises internal
-     * components.
-     *
-     * @param  {object} options
-     * @return {void}
-     */
-
-    init(options) {
-        Object.assign(this.config, options);
-
-        this.router = new Router();
-
-        this.router.init(this.config.routes);
-
-        this.stateManager = new StateManager(this.router, this.config.reducer);
     }
 
     /**
@@ -44,7 +28,9 @@ class App {
     start(url) {
         return this.stateManager.init(url)
             .then(initialState => {
-                // TODO: render view against state
+                const rootEl = Renderer.renderNode(initialState, {}, this.root);
+
+                document.body.appendChild(rootEl);
             });
     }
 }
