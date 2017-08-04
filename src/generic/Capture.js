@@ -62,6 +62,28 @@ class Capture {
     test(path) {
         if (typeof path !== 'string') throw new Error(ERROR_INVALID_PATH);
 
+        let matches = null;
+
+        // If the path matches the capture's expression,
+
+        if ((matches = this.re.exec(path))) {
+            const request = new Request();
+
+            request.path = path;
+
+            // Iterate through `paramKeys` to extract values in `params` hash
+
+            this.paramKeys.reduce((params, key, i) => {
+                const value = matches[i + 1];
+
+                params[key] = value;
+
+                return params;
+            }, request.params);
+
+            return request;
+        }
+
         return null;
     }
 }
