@@ -6,6 +6,7 @@ import Renderer     from './Renderer';
 class App {
     constructor(options={}) {
         this.config       = Object.assign(new ConfigApp(), options);
+
         this.router       = new Router(this.config.routes);
         this.stateManager = new StateManager(this.router, this.config.reducer);
         this.renderer     = new Renderer(this.config.layout);
