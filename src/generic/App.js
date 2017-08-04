@@ -1,10 +1,10 @@
-import Config       from './Config';
+import ConfigApp    from './ConfigApp';
 import Router       from './Router';
 import StateManager from './StateManager';
 
 class App {
     constructor(options={}) {
-        this.config       = new Config();
+        this.config       = new ConfigApp();
         this.router       = null;
         this.stateManager = null;
         this.navigator    = null;
