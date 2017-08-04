@@ -22,18 +22,20 @@ const mockReducer = (prevState, action) => {
     return prevState;
 };
 
+const mockRoutes = [{pattern: '/', action: () => ({type: 'TEST'})}];
+
 describe('StateManager', () => {
     it('should throw an error if instantiated without `Router` injection', () => {
         assert.throws(() => new StateManager(), ERROR_ROUTER_NOT_INJECTED);
     });
 
     it('should throw an error if instantiated without `reducer` injection', () => {
-        assert.throws(() => new StateManager(new Router()), ERROR_REDUCER_NOT_INJECTED);
+        assert.throws(() => new StateManager(new Router(mockRoutes)), ERROR_REDUCER_NOT_INJECTED);
     });
 
     describe('#getState()', () => {
         it('should return the current state', () => {
-            const stateManager = new StateManager(new Router(), new Function());
+            const stateManager = new StateManager(new Router(mockRoutes), new Function());
             const state = stateManager.getState();
 
             assert.isOk(state);
@@ -45,7 +47,7 @@ describe('StateManager', () => {
         it('should create the expected state for a provided action', () => {
             const action = () => ({type: 'TEST'});
 
-            const stateManager = new StateManager(new Router(), mockReducer);
+            const stateManager = new StateManager(new Router(mockRoutes), mockReducer);
             const prevState = stateManager.getState();
 
             return stateManager.dispatch(action)
@@ -60,14 +62,8 @@ describe('StateManager', () => {
 
     describe('#navigate()', () => {
         it('should create the expected state for a provided URL', () => {
-            const routes = [
-                {pattern: '/', action: () => ({type: 'TEST'})}
-            ];
-
-            const router = new Router();
+            const router = new Router(mockRoutes);
             const stateManager = new StateManager(router, mockReducer);
-
-            router.init(routes);
 
             return stateManager.navigate('/')
                 .then(nextState => {

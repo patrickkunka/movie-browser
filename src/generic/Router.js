@@ -2,11 +2,13 @@ import Capture from './Capture';
 import Route   from './Route';
 
 class Router {
-    constructor() {
+    constructor(routes) {
         this.routes   = [];
         this.captures = [];
 
         Object.seal(this);
+
+        this.init(routes);
     }
 
     /**
@@ -33,8 +35,6 @@ class Router {
      */
 
     findMatchingRoute(url) {
-        if (this.routes.length < 1) throw new Error(ERROR_NOT_INITIALISED);
-
         if (typeof url !== 'string') throw new TypeError(ERROR_INVALID_PATH);
 
         const [pathRaw, queryString=''] = url.split('?');
@@ -121,6 +121,5 @@ class Router {
 export const ERROR_INVALID_ROUTES  = '[Router#init()] Invalid routes';
 export const ERROR_INVALID_PATH    = '[Router#findMatchingRoute()] Invalid path';
 export const ERROR_NOT_FOUND       = '[Router#findMatchingRoute()] No matching route found';
-export const ERROR_NOT_INITIALISED = '[Router#findMatchingRoute()] Not initialised';
 
 export default Router;

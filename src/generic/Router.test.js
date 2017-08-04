@@ -1,5 +1,4 @@
 import Router, {
-    ERROR_NOT_INITIALISED,
     ERROR_INVALID_ROUTES,
     ERROR_INVALID_PATH,
     ERROR_NOT_FOUND
@@ -14,64 +13,40 @@ import deepEqual from 'chai-shallow-deep-equal';
 chai.use(deepEqual);
 
 describe('Router', () => {
-    it('should return a `Router` instance when instantiated', () => {
-        const router = new Router();
-
-        assert.instanceOf(router, Router);
+    it('should throw an error if consumer-provided routes are invalid', () => {
+        assert.throws(() => new Router(void(0)), ERROR_INVALID_ROUTES);
     });
 
-    it('should throw an error if used before initialisation', () => {
-        const router = new Router();
-
-        assert.throws(() => router.findMatchingRoute('/'), ERROR_NOT_INITIALISED);
+    it('should throw an error if no routes are passed', () => {
+        assert.throws(() => new Router([]), ERROR_INVALID_ROUTES);
     });
 
-    describe('#init()', () => {
-        it('should throw an error if consumer-provided routes are invalid', () => {
-            const router = new Router();
+    it('should map consumer-provided routes in an array of `Route` instances', () => {
+        const router = new Router([
+            {
+                pattern: '/',
+                action: null
+            }
+        ]);
 
-            assert.throws(() => router.init(void(0)), ERROR_INVALID_ROUTES);
-        });
+        assert.equal(router.routes.length, 1);
+        assert.instanceOf(router.routes[0], Route);
+        assert.equal(router.routes[0].pattern, '/');
+    });
 
-        it('should throw an error if no routes are passed', () => {
-            const router = new Router();
+    it('should parse consumer-provided routes in an array of built `Capture` instances', () => {
+        const router = new Router([
+            {pattern: '/'}
+        ]);
 
-            assert.throws(() => router.init([]), ERROR_INVALID_ROUTES);
-        });
-
-        it('should map consumer-provided routes in an array of `Route` instances', () => {
-            const router = new Router();
-
-            router.init([
-                {
-                    pattern: '/',
-                    action: null
-                }
-            ]);
-
-            assert.equal(router.routes.length, 1);
-            assert.instanceOf(router.routes[0], Route);
-            assert.equal(router.routes[0].pattern, '/');
-        });
-
-        it('should parse consumer-provided routes in an array of built `Capture` instances', () => {
-            const router = new Router();
-
-            router.init([
-                {pattern: '/'}
-            ]);
-
-            assert.equal(router.captures.length, 1);
-            assert.instanceOf(router.captures[0], Capture);
-            assert.deepEqual(router.captures[0].re, /^\/$/g);
-        });
+        assert.equal(router.captures.length, 1);
+        assert.instanceOf(router.captures[0], Capture);
+        assert.deepEqual(router.captures[0].re, /^\/$/g);
     });
 
     describe('#findMatchingRoute', () => {
         it('should throw an error if an invalid path is passed', () => {
-            const router = new Router();
-
-            router.init([
+            const router = new Router([
                 {pattern: '/'}
             ]);
 
@@ -79,9 +54,7 @@ describe('Router', () => {
         });
 
         it('should throw an error if no matching route is found', () => {
-            const router = new Router();
-
-            router.init([
+            const router = new Router([
                 {pattern: '/'}
             ]);
 
@@ -89,10 +62,8 @@ describe('Router', () => {
         });
 
         it('should return a populated instance of a `Route` for matching paths', () => {
-            const router = new Router();
             const action = () => (void(0));
-
-            router.init([
+            const router = new Router([
                 {pattern: '/', action}
             ]);
 
@@ -104,9 +75,7 @@ describe('Router', () => {
         });
 
         it('should return a populated instance of a `Route` for matching paths with dynamic segments', () => {
-            const router = new Router();
-
-            router.init([
+            const router = new Router([
                 {pattern: '/:dynamicSegment/'}
             ]);
 
@@ -119,9 +88,7 @@ describe('Router', () => {
         });
 
         it('should parse an associated query string into a hash', () => {
-            const router = new Router();
-
-            router.init([
+            const router = new Router([
                 {pattern: '/:dynamicSegment/'}
             ]);
 
@@ -136,9 +103,7 @@ describe('Router', () => {
         });
 
         it('should sanitize the provided path', () => {
-            const router = new Router();
-
-            router.init([
+            const router = new Router([
                 {pattern: '/required-segment/'}
             ]);
 

@@ -7,6 +7,7 @@ class App {
         this.config       = new Config();
         this.router       = null;
         this.stateManager = null;
+        this.navigator    = null;
         this.renderer     = null;
 
         Object.seal(this);
@@ -15,7 +16,7 @@ class App {
     }
 
     /**
-     * Merges consumer-provided components, initialises internal
+     * Merges consumer-provided components and initialises internal
      * components.
      *
      * @param  {object} options
@@ -33,7 +34,7 @@ class App {
     }
 
     /**
-     * Starts up the application by creating an initial state, and rendering the
+     * Starts up the application by creating an initial state and rendering the
      * resulting DOM into the document <body>.
      *
      * @param  {*} url
