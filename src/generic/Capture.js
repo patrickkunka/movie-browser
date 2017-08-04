@@ -25,6 +25,8 @@ class Capture {
         let re = this.pattern;
         let matches = null;
 
+        // Iterate through any dynamic segments in the pattern
+
         while ((matches = DYNAMIC_SEGMENT_RE.exec(this.pattern)) !== null) {
             const fullMatch = matches[0];
             const propKey   = matches[1];
@@ -42,7 +44,8 @@ class Capture {
 
         re = '^' + re + '$';
 
-        // Create regular expression from expression string, assign to instance
+        // Create regular expression from string, assign to instance
+        // for runtime testing
 
         this.re = new RegExp(re, 'g');
     }
@@ -57,11 +60,11 @@ class Capture {
      */
 
     test(path) {
+        if (typeof path !== 'string') throw new Error(ERROR_INVALID_PATH);
 
+        return null;
     }
 }
-
-export const ERROR_INVALID_PATTERN = '[Capture#build()] Invalid pattern provided';
 
 // A simple expression for matching dynamic segments. Matches a
 // ":" character followed by any number of word characters.
@@ -73,5 +76,10 @@ const DYNAMIC_SEGMENT_RE = /:(\w+)/g;
 // from a provided path
 
 const DYNAMIC_CAPTURE = '([a-z0-9-.]+)';
+
+// Error messages are exposed for testing
+
+export const ERROR_INVALID_PATTERN = '[Capture#build()] Invalid pattern provided';
+export const ERROR_INVALID_PATH    = '[Capture#test()] Invalid path provided';
 
 export default Capture;
