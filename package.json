@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --compilers babel-register ./test/unit.js",
     "build": "./node_modules/.bin/webpack",
-    "watch": "./node_modules/.bin/webpack --watch"
+    "watch": "./node_modules/.bin/webpack --watch",
+    "start": "node ./server.js"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -17,6 +18,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-shallow-deep-equal": "^1.4.6",
     "create-index": "^2.2.0",
+    "express": "^4.15.3",
     "mocha": "^3.5.0",
     "webpack": "^3.4.1"
   }

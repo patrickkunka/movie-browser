@@ -16,6 +16,8 @@ export const beginNavigation = () => ({type: ACTION_BEGIN_NAVIGATION});
  */
 
 export const navigateToSearch = (request) => () => {
+    const query = request.query.query;
+
     return Promise.resolve()
         .then(() => {
             return {
@@ -31,6 +33,8 @@ export const navigateToSearch = (request) => () => {
 
 export const navigateToMovie = (request) => () => {
     const slug = request.params.slug;
+
+    // TODO: Call API with slug
 
     return Promise.resolve()
         .then(() => {
