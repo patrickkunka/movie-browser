@@ -1,12 +1,19 @@
 import ConfigComponent from './ConfigComponent';
 
 class Component {
-    constructor() {
-        this.stateManager = null;
+    constructor(state, parent) {
         this.config       = new ConfigComponent();
         this.refs         = {root: null};
+        this.props        = {};
+        this.state        = null;
         this.bindings     = [];
         this.isMounted    = false;
+
+        this.receiveData(state, parent);
+    }
+
+    receiveData(state, parent) {
+        this.state = state;
     }
 
     configure(options) {
