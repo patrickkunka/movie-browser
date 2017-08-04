@@ -19,6 +19,16 @@ describe('StateManager', () => {
         assert.throws(() => new StateManager(new Router()), ERROR_REDUCER_NOT_INJECTED);
     });
 
+    describe('#getState()', () => {
+        it('should return the current state', () => {
+            const stateManager = new StateManager(new Router(), new Function());
+            const state = stateManager.getState();
+
+            assert.isOk(state);
+            assert.typeOf(state, 'object');
+        });
+    });
+
     describe('#dispatch()', () => {
         it('should create the expected state for a given action', () => {
             const action = () => ({type: 'TEST'});
@@ -38,10 +48,13 @@ describe('StateManager', () => {
             };
 
             const stateManager = new StateManager(new Router(), reducer);
+            const prevState = stateManager.getState();
 
             return stateManager.dispatch(action)
-                .then((prevState, nextState) => {
+                .then(nextState => {
+                    assert.isOk(prevState);
                     assert.isOk(nextState);
+                    assert.notEqual(prevState, nextState);
                     assert.equal(nextState.foo, 'bar');
                 });
         });

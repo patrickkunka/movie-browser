@@ -39,11 +39,28 @@ class StateManager {
     /**
      * Updates the application state by invoking an action function.
      *
-     * @param {function} action
+     * @param  {function} actionFn
+     * @return {Promise.<object>}
      */
 
-    dispatch(action) {
+    dispatch(actionFn) {
+        const args = Array.from(arguments).slice(1);
 
+        return Promise.resolve()
+            .then(() => {
+                const returnValue = actionFn(...args);
+
+                if (typeof returnValue === 'function') {
+                    // Asyncronous action
+
+                    return returnValue();
+                }
+
+                // Syncronous action
+
+                return returnValue;
+            })
+            .then(action => [action].reduce(this.reducer, this.state));
     }
 
     /**
@@ -54,7 +71,7 @@ class StateManager {
      */
 
     getState() {
-
+        return this.state;
     }
 }
 
