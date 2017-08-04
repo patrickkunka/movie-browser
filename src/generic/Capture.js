@@ -1,10 +1,13 @@
 import Request from './Request';
 
+export const ERROR_INVALID_PATTERN = '[Capture#build()] Invalid pattern provided';
+
 class Capture {
     constructor() {
-        this.re      = null;
-        this.pattern = null;
-        this.action  = null;
+        this.re         = null;
+        this.pattern    = '';
+        this.action     = null;
+        this.paramKeys  = [];
     }
 
     /**
@@ -15,7 +18,9 @@ class Capture {
      */
 
     build() {
-
+        if (!this.pattern || typeof this.pattern !== 'string') {
+            throw new TypeError(ERROR_INVALID_PATTERN);
+        }
     }
 
     /**
