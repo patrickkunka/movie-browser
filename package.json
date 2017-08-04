@@ -1,0 +1,6 @@
+{
+  "name": "movie-browser",
+  "version": "0.0.0",
+  "description": "A simple UI for searching The Movie Database",
+  "private": true
+}
