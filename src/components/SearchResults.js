@@ -1,8 +1,12 @@
 import {Component} from '../generic';
 
 class SearchResults extends Component {
-    render() {
-        return '<div></div>';
+    render(state, props, children) {
+        return (
+            `<section class="search-results">
+                ${children}
+            </section>`
+        );
     }
 }
 

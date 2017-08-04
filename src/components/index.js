@@ -1,6 +1,9 @@
 // @create-index
 
+export { default as Footer } from './Footer.js';
+export { default as Header } from './Header.js';
 export { default as Loader } from './Loader.js';
+export { default as Main } from './Main.js';
 export { default as Movie } from './Movie.js';
 export { default as Root } from './Root.js';
 export { default as SearchForm } from './SearchForm.js';

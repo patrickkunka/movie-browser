@@ -1,9 +1,9 @@
 import {Component} from '../generic';
 
-class Main extends Component {
+class Root extends Component {
     render(state, props, children) {
-        return `<main>${children}</main>`;
+        return `<div class="root">${children}</div>`;
     }
 }
 
-export default Main;
+export default Root;
