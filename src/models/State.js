@@ -7,8 +7,9 @@ import Results from './Results';
 
 class State {
     constructor() {
-        this.path           = '';
         this.view           = '';
+        this.url            = '';
+        this.path           = '';
         this.query          = '';
         this.suggestions    = new Results();
         this.results        = new Results();

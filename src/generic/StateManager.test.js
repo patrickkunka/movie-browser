@@ -10,6 +10,18 @@ import chaiAsPromised from 'chai-as-promised';
 
 chai.use(chaiAsPromised);
 
+const mockReducer = (prevState, action) => {
+    if (action.type === 'TEST') {
+        const nextState = Object.assign({}, prevState);
+
+        nextState.foo = 'bar';
+
+        return nextState;
+    }
+
+    return prevState;
+};
+
 describe('StateManager', () => {
     it('should throw an error if instantiated without `Router` injection', () => {
         assert.throws(() => new StateManager(), ERROR_ROUTER_NOT_INJECTED);
@@ -30,24 +42,10 @@ describe('StateManager', () => {
     });
 
     describe('#dispatch()', () => {
-        it('should create the expected state for a given action', () => {
+        it('should create the expected state for a provided action', () => {
             const action = () => ({type: 'TEST'});
 
-            const reducer = (prevState, action) => {
-                switch (action.type) {
-                    case 'TEST': {
-                        const nextState = Object.assign({foo: ''}, prevState);
-
-                        nextState.foo = 'bar';
-
-                        return nextState;
-                    }
-                }
-
-                return prevState;
-            };
-
-            const stateManager = new StateManager(new Router(), reducer);
+            const stateManager = new StateManager(new Router(), mockReducer);
             const prevState = stateManager.getState();
 
             return stateManager.dispatch(action)
@@ -55,6 +53,24 @@ describe('StateManager', () => {
                     assert.isOk(prevState);
                     assert.isOk(nextState);
                     assert.notEqual(prevState, nextState);
+                    assert.equal(nextState.foo, 'bar');
+                });
+        });
+    });
+
+    describe('#navigate()', () => {
+        it('should create the expected state for a provided URL', () => {
+            const routes = [
+                {pattern: '/', action: () => ({type: 'TEST'})}
+            ];
+
+            const router = new Router();
+            const stateManager = new StateManager(router, mockReducer);
+
+            router.init(routes);
+
+            return stateManager.navigate('/')
+                .then(nextState => {
                     assert.equal(nextState.foo, 'bar');
                 });
         });

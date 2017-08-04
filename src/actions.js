@@ -11,11 +11,11 @@ import {
 export const beginNavigation = () => ({type: ACTION_BEGIN_NAVIGATION});
 
 /**
- * @param  {Route} route
+ * @param  {Request} request
  * @return {function}
  */
 
-export const navigateToSearch = (route) => () => {
+export const navigateToSearch = (request) => () => {
     return Promise.resolve()
         .then(() => {
             return {
@@ -25,11 +25,11 @@ export const navigateToSearch = (route) => () => {
 };
 
 /**
- * @param  {Route} route
+ * @param  {Request} request
  * @return {function}
  */
 
-export const navigateToMovie = (route) => () => {
+export const navigateToMovie = (request) => () => {
     return Promise.resolve()
         .then(() => {
             return {
