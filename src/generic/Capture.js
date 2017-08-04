@@ -1,33 +1,34 @@
 import Request from './Request';
 
 class Capture {
-    constructor() {
+    constructor(pattern) {
         this.re         = null;
-        this.pattern    = '';
-        this.action     = null;
         this.paramKeys  = [];
+
+        this.build(pattern);
     }
 
     /**
-     * Generates a capturing regular expression from the capture's
-     * route pattern.
+     * Generates a capturing regular expression and any associated
+     * param keys from the capture's route pattern.
      *
+     * @param  {string}
      * @return {void}
      */
 
-    build() {
-        if (!this.pattern || typeof this.pattern !== 'string') {
+    build(pattern) {
+        if (!pattern || typeof pattern !== 'string') {
             throw new TypeError(ERROR_INVALID_PATTERN);
         }
 
         // Initialise an expression string using the provided pattern
 
-        let re = this.pattern;
+        let re = pattern;
         let matches = null;
 
         // Iterate through any dynamic segments in the pattern
 
-        while ((matches = DYNAMIC_SEGMENT_RE.exec(this.pattern)) !== null) {
+        while ((matches = DYNAMIC_SEGMENT_RE.exec(pattern)) !== null) {
             const fullMatch = matches[0];
             const propKey   = matches[1];
 
