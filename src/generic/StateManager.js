@@ -75,8 +75,34 @@ class StateManager {
             .then(action => {
                 const nextState = [action].reduce(this.reducer, this.state);
 
-                return Object.freeze(nextState);
+                this.state = Object.freeze(nextState);
+
+                return this.state;
             });
+    }
+
+    /**
+     * Receives a plain state object from the browser in response to
+     * history back/forward and updates the application state accordingly.
+     *
+     * @param  {*} plainState
+     * @return {object}
+     */
+
+    receivePoppedState(plainState) {
+        const prevState = this.state;
+        const prototype = Object.getPrototypeOf(prevState);
+
+        let State = null;
+        let state = plainState;
+
+        if ((State = prototype.constructor) !== Object) {
+            // Consumer has implemented a custom state model, coerce
+
+            state = Object.assign(new State(), state);
+        }
+
+        return state;
     }
 
     /**
@@ -120,8 +146,8 @@ class StateManager {
 }
 
 
-export const HISTORY_MANIPULATION_PUSH    = 'push';
-export const HISTORY_MANIPULATION_REPLACE = 'replace';
+export const HISTORY_MANIPULATION_PUSH          = 'push';
+export const HISTORY_MANIPULATION_REPLACE       = 'replace';
 
 export const ERROR_ROUTER_NOT_INJECTED          = '[StateManager] Router must be injected';
 export const ERROR_REDUCER_NOT_INJECTED         = '[StateManager] Reducer must be injected';

@@ -40,8 +40,7 @@ class Navigator {
      */
 
     handlePopState(e) {
-        this.stateManager.receivePoppedState(e.state)
-            .catch(err => console.error(err));
+        this.stateManager.receivePoppedState(e.state);
     }
 }
 
