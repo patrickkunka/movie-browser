@@ -58,7 +58,9 @@ class Renderer {
 
         marker = el.querySelector(CHILD_MARKER_SELECTOR);
 
-        el.replaceChild(children, marker);
+        if (marker) {
+            el.replaceChild(children, marker);
+        }
 
         if (instance.refs) {
             instance.refs.root = el;
@@ -103,7 +105,7 @@ class Renderer {
         } else {
             // Object style
 
-            Object.assign(layoutItem, layoutItem);
+            Object.assign(layoutItem, layoutItemRaw);
 
             layoutItem.children = layoutItem.children.map(Renderer.buildTreeFromNode);
         }

@@ -1,3 +1,17 @@
-import {App} from './generic';
+import {App}   from './generic';
 
-const app = new App();
+import routes  from './routes';
+import layout  from './layouts/root';
+import reducer from './reducers';
+
+const app = new App({
+    routes,
+    layout,
+    reducer
+});
+
+app.start(window.location.pathname + window.location.search)
+    .then(() => {
+        console.log(app.stateManager.getState());
+    })
+    .catch(err => console.error(err));

@@ -7,7 +7,7 @@ import {
     SearchResult,
     Movie,
     Loader
-} from './components';
+} from '../components';
 
 export default {
     component: Root,
