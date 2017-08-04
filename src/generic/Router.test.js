@@ -125,13 +125,13 @@ describe('Router', () => {
                 {pattern: '/:dynamicSegment/'}
             ]);
 
-            const route = router.findMatchingRoute('/foo/', '?bar=baz');
+            const route = router.findMatchingRoute('/foo/?bar=baz');
 
             assert.instanceOf(route, Route);
             assert.equal(route.pattern, '/:dynamicSegment/');
             assert.equal(route.request.path, '/foo/');
             assert.equal(route.request.params.dynamicSegment, 'foo');
-            assert.equal(route.request.queryString, '?bar=baz');
+            assert.equal(route.request.queryString, 'bar=baz');
             assert.equal(route.request.query.bar, 'baz');
         });
 

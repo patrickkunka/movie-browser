@@ -5,6 +5,8 @@ class Router {
     constructor() {
         this.routes   = [];
         this.captures = [];
+
+        Object.seal(this);
     }
 
     /**
@@ -23,18 +25,19 @@ class Router {
     }
 
     /**
-     * Tests a provided path against all routes, returning a populated
+     * Tests a provided URL against all routes, returning a populated
      * `Route` object if matching.
      *
-     * @param  {string} pathRaw
-     * @param  {string} [queryString='']
+     * @param  {string} url
      * @return {Route}
      */
 
-    findMatchingRoute(pathRaw, queryString='') {
+    findMatchingRoute(url) {
         if (this.routes.length < 1) throw new Error(ERROR_NOT_INITIALISED);
 
-        if (typeof pathRaw !== 'string') throw new TypeError(ERROR_INVALID_PATH);
+        if (typeof url !== 'string') throw new TypeError(ERROR_INVALID_PATH);
+
+        const [pathRaw, queryString=''] = url.split('?');
 
         const path = Router.sanitiseUrl(pathRaw);
 
@@ -68,7 +71,7 @@ class Router {
     }
 
     /**
-     * Cleans up common typos in a provided URL path.
+     * Cleans up common typos in a provided path.
      *
      * @static
      * @param  {string} pathRaw

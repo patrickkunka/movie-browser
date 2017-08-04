@@ -6,6 +6,8 @@ class Capture {
         this.paramKeys  = [];
 
         this.build(pattern);
+
+        Object.seal(this);
     }
 
     /**
