@@ -34,13 +34,14 @@ class Renderer {
             return frag;
         }, document.createDocumentFragment());
 
-        let html = '';
-        let el   = null;
+        let html    = '';
+        let el      = null;
+        let marker  = null;
 
         if (instance instanceof Component) {
             // Else, class style
 
-            html = instance.render(instance.props, children);
+            html = instance.render(state, instance.props, CHILD_MARKER);
 
             // Add a reference to instance in the layout tree
 
@@ -48,12 +49,16 @@ class Renderer {
         } else {
             // Assume pure function style
 
-            html = node.component(state, parent);
+            html = node.component(state, parent, CHILD_MARKER);
         }
 
         temp.innerHTML = html;
 
         el = temp.firstElementChild;
+
+        marker = el.querySelector(CHILD_MARKER_SELECTOR);
+
+        el.replaceChild(children, marker);
 
         if (instance.refs) {
             instance.refs.root = el;
@@ -106,5 +111,8 @@ class Renderer {
         return layoutItem;
     }
 }
+
+const CHILD_MARKER          = '<div id="child-marker"></div>';
+const CHILD_MARKER_SELECTOR = '#child-marker';
 
 export default Renderer;

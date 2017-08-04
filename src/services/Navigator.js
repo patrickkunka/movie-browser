@@ -1,4 +1,8 @@
-import StateManager from './StateManager';
+import {
+    beginNavigation
+} from './actions';
+
+import StateManager from './generic/StateManager';
 
 class Navigator {
     constructor(stateManager) {
@@ -29,6 +33,8 @@ class Navigator {
         let href = '';
 
         if (!anchor || (href = anchor.href) === '') return;
+
+        this.stateManager.dispatch(beginNavigation);
 
         this.stateManager.navigate(href)
             .catch(err => console.error(err));

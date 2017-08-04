@@ -2,7 +2,6 @@ import ConfigApp    from './ConfigApp';
 import Router       from './Router';
 import StateManager from './StateManager';
 import Renderer     from './Renderer';
-import Navigator    from './Navigator';
 
 class App {
     constructor(options={}) {
@@ -10,7 +9,6 @@ class App {
         this.router       = new Router(this.config.routes);
         this.stateManager = new StateManager(this.router, this.config.reducer);
         this.renderer     = new Renderer(this.config.layout);
-        this.navigator    = new Navigator();
 
         this.root = Renderer.buildTreeFromNode(this.config.layout);
 
