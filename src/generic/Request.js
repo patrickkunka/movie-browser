@@ -1,8 +1,9 @@
 class Request {
     constructor() {
-        this.params  = {};
-        this.query   = {};
-        this.path    = '';
+        this.path        = '';
+        this.queryString = '';
+        this.params      = {};
+        this.query       = {};
 
         Object.seal(this);
     }

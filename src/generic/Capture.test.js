@@ -17,7 +17,7 @@ describe('Capture', () => {
         assert.instanceOf(capture, Capture);
     });
 
-    describe('Capture#build()', () => {
+    describe('#build()', () => {
         it('should error if called with an invalid pattern', () => {
             const capture = new Capture();
 
@@ -89,7 +89,7 @@ describe('Capture', () => {
         });
     });
 
-    describe('Capture#test()', () => {
+    describe('#test()', () => {
         it('should throw an error if no valid path provided', () => {
             const capture = Object.assign(new Capture(), {pattern: '/'});
 

@@ -16,8 +16,8 @@ class Router {
     }
 
     /**
-     * Tests a provided path against all routes, invoking a
-     * an associated action function and returning an action object
+     * Tests a provided path against all routes, invoking an
+     * associated action function and returning an action object
      * if matching.
      *
      * @param  {string} path
@@ -25,8 +25,10 @@ class Router {
      */
 
     followPath(path) {
-
+        if (this.routes.length < 1) throw new Error(ERROR_NOT_INITIALISED);
     }
 }
+
+export const ERROR_NOT_INITIALISED = '[Router#followPath()] Not initialised';
 
 export default Router;
