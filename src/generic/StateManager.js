@@ -1,15 +1,23 @@
+import Router from './Router';
+
 class StateManager {
-    constructor() {
-        this.state = null;
+    constructor(router, reducer) {
+        if (!(router instanceof Router)) throw new Error(ERROR_ROUTER_NOT_INJECTED);
+
+        if (typeof reducer !== 'function') throw new Error(ERROR_REDUCER_NOT_INJECTED);
+
+        this.state  = {};
+        this.router = router;
+        this.reducer = reducer;
 
         Object.seal(this);
     }
 
     /**
-     * Initialises the application state with a provided URL
+     * Initialises the application state with a provided URL.
      *
      * @param  {string}
-     * @return {void}
+     * @return {Promise}
      */
 
     init(url) {
@@ -50,7 +58,10 @@ class StateManager {
     }
 }
 
-export const HISTORY_MANIPULATION_PUSH = 'push';
+export const HISTORY_MANIPULATION_PUSH    = 'push';
 export const HISTORY_MANIPULATION_REPLACE = 'replace';
+
+export const ERROR_ROUTER_NOT_INJECTED  = '[StateManager] Router must be injected';
+export const ERROR_REDUCER_NOT_INJECTED = '[StateManager] Reducer must be injected';
 
 export default StateManager;
