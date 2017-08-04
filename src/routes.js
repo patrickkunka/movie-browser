@@ -1,11 +1,19 @@
+import {
+    navigateToSearch,
+    navigateToMovie
+} from './actions';
+
 export default [
     {
-        pattern: '/'
+        pattern: '/',
+        action: navigateToSearch
     },
     {
-        pattern: '/search/'
+        pattern: '/search/',
+        action: navigateToSearch
     },
     {
-        pattern: '/:slug/'
+        pattern: '/:slug/',
+        action: navigateToMovie
     }
 ];

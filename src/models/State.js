@@ -12,6 +12,7 @@ class State {
         this.query          = '';
         this.suggestions    = new Results();
         this.results        = new Results();
+        this.isNavigating   = false;
         this.isFetching     = false;
         this.movie          = null;
 
