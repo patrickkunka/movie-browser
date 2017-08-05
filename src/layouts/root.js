@@ -1,5 +1,6 @@
 import {
     Footer,
+    ErrorMessage,
     Header,
     Main,
     Root,
@@ -21,6 +22,7 @@ export default {
             children: [
                 {
                     component: SearchForm,
+                    if: state => !state.isErrorView,
                     children: [
                         {
                             component: Suggestions,
@@ -47,6 +49,10 @@ export default {
                 {
                     component: Movie,
                     if: state => state.isMovieView
+                },
+                {
+                    component: ErrorMessage,
+                    if: state => state.isErrorView
                 }
             ]
         },

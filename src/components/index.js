@@ -1,5 +1,6 @@
 // @create-index
 
+export { default as ErrorMessage } from './ErrorMessage.js';
 export { default as Footer } from './Footer.js';
 export { default as Header } from './Header.js';
 export { default as Loader } from './Loader.js';

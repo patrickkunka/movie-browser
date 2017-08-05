@@ -80,7 +80,9 @@ class StateManager {
 
                 this.state = Object.freeze(nextState);
 
-                this.renderer.updateComponent(this.state, {}, this.renderer.root);
+                if (this.renderer) {
+                    this.renderer.updateComponent(this.state, {}, this.renderer.root);
+                }
 
                 return this.state;
             });

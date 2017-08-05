@@ -1,5 +1,6 @@
 import {
     ACTION_BEGIN_NAVIGATION,
+    ACTION_HANDLE_ERROR,
     ACTION_NAVIGATE_TO_SEARCH,
     ACTION_NAVIGATE_TO_MOVIE
 } from './constants';
@@ -11,6 +12,12 @@ import Tmdb from './services/Tmdb';
  */
 
 export const beginNavigation = () => ({type: ACTION_BEGIN_NAVIGATION});
+
+/**
+ * @return {object}
+ */
+
+export const handleError = () => ({type: ACTION_HANDLE_ERROR});
 
 /**
  * @param  {Request} request
@@ -49,5 +56,6 @@ export const navigateToMovie = (request) => () => {
                 type: ACTION_NAVIGATE_TO_MOVIE,
                 movie
             };
-        });
+        })
+        .catch(handleError);
 };

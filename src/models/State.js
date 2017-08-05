@@ -1,6 +1,7 @@
 import {
     VIEW_MOVIE,
-    VIEW_SEARCH
+    VIEW_SEARCH,
+    VIEW_ERROR
 } from '../constants';
 
 import Results from './Results';
@@ -26,6 +27,10 @@ class State {
 
     get isMovieView() {
         return this.view === VIEW_MOVIE;
+    }
+
+    get isErrorView() {
+        return this.view === VIEW_ERROR;
     }
 
     get hasSuggestions() {

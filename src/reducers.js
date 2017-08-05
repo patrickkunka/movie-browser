@@ -2,10 +2,12 @@ import State from './models/State';
 
 import {
     ACTION_BEGIN_NAVIGATION,
+    ACTION_HANDLE_ERROR,
     ACTION_NAVIGATE_TO_SEARCH,
     ACTION_NAVIGATE_TO_MOVIE,
     VIEW_SEARCH,
-    VIEW_MOVIE
+    VIEW_MOVIE,
+    VIEW_ERROR
 } from './constants';
 
 const rootReducer = (prevState, action) => {
@@ -36,6 +38,13 @@ const rootReducer = (prevState, action) => {
                 nextState.results.totalResults = action.results.total_results;
                 nextState.results.itemsPerPage = 20;
             }
+
+            return nextState;
+        }
+        case ACTION_HANDLE_ERROR: {
+            const nextState = new State();
+
+            nextState.view  = VIEW_ERROR;
 
             return nextState;
         }

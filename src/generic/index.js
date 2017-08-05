@@ -11,4 +11,5 @@ export { default as Request } from './Request.js';
 export { default as Route } from './Route.js';
 export { default as Router } from './Router.js';
 export { default as StateManager } from './StateManager.js';
+export { default as Util } from './Util.js';
 

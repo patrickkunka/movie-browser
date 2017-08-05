@@ -54,7 +54,7 @@ class Router {
         }
 
         if (!request) {
-            throw new Error(ERROR_NOT_FOUND);
+            throw new Error(ERROR_INVALID_ROUTE);
         }
 
         request.queryString = queryString;
@@ -120,6 +120,6 @@ class Router {
 
 export const ERROR_INVALID_ROUTES  = '[Router#init()] Invalid routes';
 export const ERROR_INVALID_PATH    = '[Router#findMatchingRoute()] Invalid path';
-export const ERROR_NOT_FOUND       = '[Router#findMatchingRoute()] No matching route found';
+export const ERROR_INVALID_ROUTE   = '[Router#findMatchingRoute()] No matching route found';
 
 export default Router;

@@ -1,11 +1,13 @@
 import {App}   from './generic';
+import {ERROR_NOT_FOUND} from './generic/Router';
 
 import config  from '../config';
-
 import routes  from './routes';
 import layout  from './layouts/root';
 import reducer from './reducers';
 import Tmdb    from './services/Tmdb';
+
+import {handleError} from './actions';
 
 Tmdb.setApiKey(config.tmdbApiKey);
 
@@ -17,6 +19,13 @@ const app = new App({
 
 app.start(window.location.pathname + window.location.search)
     .then(() => {
-        console.log(app.stateManager.getState(), app.root);
+        console.log('App ready');
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+        switch (err.message) {
+            case ERROR_NOT_FOUND:
+                return app.stateManager.dispatch(handleError).then(() => app.attach());
+            default:
+                console.error(err);
+        }
+    });

@@ -1,7 +1,7 @@
 import Router, {
     ERROR_INVALID_ROUTES,
     ERROR_INVALID_PATH,
-    ERROR_NOT_FOUND
+    ERROR_INVALID_ROUTE
 } from './Router';
 
 import Capture from './Capture';
@@ -58,7 +58,7 @@ describe('Router', () => {
                 {pattern: '/'}
             ]);
 
-            assert.throws(() => router.findMatchingRoute('/foo/'), ERROR_NOT_FOUND);
+            assert.throws(() => router.findMatchingRoute('/foo/'), ERROR_INVALID_ROUTE);
         });
 
         it('should return a populated instance of a `Route` for matching paths', () => {

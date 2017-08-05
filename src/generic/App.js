@@ -26,11 +26,21 @@ class App {
 
     start(url) {
         return this.stateManager.init(url)
-            .then(() => {
-                const rootEl = this.renderer.getRootEl();
+            .then(() => this.attach());
+    }
 
-                document.body.insertBefore(rootEl, document.body.lastElementChild);
-            });
+    /**
+     * Attaches the in-memory layout tree to the DOM by inserting it into
+     * a provided element, or the body if not provided.
+     *
+     * @param {HTMLElement} [parent=document.body]
+     * @return {void}
+     */
+
+    attach(parent=document.body) {
+        const rootEl = this.renderer.getRootEl();
+
+        parent.insertBefore(rootEl, parent.lastElementChild);
     }
 }
 
