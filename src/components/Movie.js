@@ -1,10 +1,10 @@
 import {Component} from '../generic';
 
 class Movie extends Component {
-    render(state) {
+    render(state, props, children) {
         return (
             `<section class="movie">
-                <h1 class="movie__title">${state.movie.original_title}</h1>
+                ${children}
             </section>`
         );
     }

@@ -1,3 +1,17 @@
 @import "vars";
 @import "mixins";
 @import "reset";
+@import "global";
+@import "typography";
+@import "wrapper";
+
+@import "../components/Root";
+@import "../components/Header";
+@import "../components/Main";
+@import "../components/Footer";
+@import "../components/SearchForm";
+@import "../components/SearchResults";
+@import "../components/SearchResult";
+@import "../components/MovieBanner";
+@import "../components/MovieStats";
+@import "../components/Pagers";

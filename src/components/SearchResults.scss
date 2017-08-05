@@ -1,0 +1,15 @@
+.search-results {
+    flex: 1;
+    margin-bottom: 2rem;
+}
+
+.search-results__info {
+    @extend %small-heading;
+
+    margin-bottom: 2rem;
+    color: $color-medium-grey;
+
+    strong {
+        color: $color-text-dark;
+    }
+}

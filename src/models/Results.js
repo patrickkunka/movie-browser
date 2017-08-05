@@ -10,6 +10,14 @@ class Results {
     get totalPages() {
         return Math.max(1, Math.ceil(this.totalResults / this.itemsPerPage));
     }
+
+    get hasMultiplePages() {
+        return this.totalPages > 1;
+    }
+
+    get isSingleResult() {
+        return this.totalResults === 1;
+    }
 }
 
 export default Results;

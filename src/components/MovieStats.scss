@@ -1,0 +1,32 @@
+.movie-stats__table {
+    width: 100%;
+    margin-bottom: 2rem;
+
+    th, td {
+        @extend %paragraph;
+
+        text-align: left;
+        padding: .5rem 0;
+        border-bottom: 1px solid $color-light-grey;
+    }
+
+    th {
+        max-width: 10rem;
+        font-weight: 700;
+        padding-right: 1rem;
+    }
+}
+
+.movie-stats__link {
+    @extend %base-type;
+    @extend %underlined-link;
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+@include breakMin($break-mid) {
+    .movie-stats__table th {
+        width: 13rem;
+    }
+}

@@ -23,9 +23,14 @@ class SearchForm extends Component {
                 },
                 {
                     ref: 'input',
-                    on: ['keypress', 'change', 'input'],
-                    bind: 'handleKeypress',
+                    on: ['keypress', 'input'],
+                    bind: 'handleInputValueChange',
                     debounce: 300
+                },
+                {
+                    ref: 'input',
+                    on: ['blur'],
+                    bind: 'handleBlur'
                 }
             ]
         });
@@ -61,7 +66,7 @@ class SearchForm extends Component {
      * @return {void}
      */
 
-    handleKeypress() {
+    handleInputValueChange() {
         const query = this.refs.input.value.trim();
         const state = this.stateManager.getState();
         const hasSuggestions = state.suggestions.items.length > 0;
@@ -92,7 +97,15 @@ class SearchForm extends Component {
                     .then(() => this.stateManager.dispatch(receiveSuggestions, query));
             })
             .catch(err => console.error(err));
+    }
 
+    /**
+     * @return {void}
+     */
+
+    handleBlur() {
+        this.stateManager.dispatch(clearSuggestions)
+            .catch(err => console.error(err));
     }
 
     /**
@@ -104,12 +117,18 @@ class SearchForm extends Component {
 
     render(state, props, children) {
         return (
-            `<form class="search-form">
+            `<form class="search-form wrapper wrapper--constrained">
                 <div class="search-form__field">
-                    <input type="text" placeholder="Search..." data-ref="input" value="${state.results.query}" required/>
-                </div>
+                    <input class="search-form__input"
+                        type="text" placeholder="Search movies..."
+                        data-ref="input"
+                        value="${state.results.query}"
+                        required/>
 
-                ${children}
+                    <div class="search-form__decor"></div>
+
+                    ${children}
+                </div>
             </form>`
         );
     }

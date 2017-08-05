@@ -1,0 +1,65 @@
+%base-type {
+    font-family: $font-sans;
+    color: $color-text-dark;
+    line-height: 1.3;
+}
+
+%large-heading {
+    @extend %base-type;
+
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+%medium-heading {
+    @extend %base-type;
+
+    font-size: 1.3rem;
+    margin-bottom: .5em;
+    font-weight: 700;
+}
+
+%small-heading {
+    @extend %base-type;
+
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: .75em;
+}
+
+%small-uppercase-heading {
+    @extend %base-type;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+%paragraph {
+    @extend %base-type;
+
+    font-size: 0.9rem;
+}
+
+%underlined-link {
+    position: relative;
+    white-space: nowrap;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        height: 0px;
+        left: 0;
+        right: 0;
+        opacity: .4;
+        border-bottom: 1px solid $color-tmdb;
+        transition: opacity 100ms;
+    }
+
+    &:hover:after {
+        opacity: 1;
+        border-bottom-width: 2px;
+    }
+}

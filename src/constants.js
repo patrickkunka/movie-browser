@@ -12,3 +12,6 @@ export const ACTION_RECEIVE_SUGGESTIONS     = Symbol('ACTION_RECEIVE_SUGGESTIONS
 
 export const RESULTS_PER_PAGE = 20;
 export const MAX_SUGGESTIONS = 6;
+
+export const BANNER_IMAGE_ROOT = 'https://image.tmdb.org/t/p/w1000';
+export const POSTER_IMAGE_ROOT = 'https://image.tmdb.org/t/p/w500';

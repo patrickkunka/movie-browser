@@ -84,7 +84,7 @@ class Renderer {
         marker = el.querySelector(CHILD_MARKER_SELECTOR);
 
         if (marker) {
-            el.replaceChild(children, marker);
+            marker.parentElement.replaceChild(children, marker);
         }
 
         if (instance instanceof Component) {

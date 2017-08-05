@@ -8,7 +8,9 @@ class Header extends Component {
     render() {
         return (
             `<header class="header">
-                <a href="/">Home</a>
+                <div class="wrapper wrapper--constrained">
+                    <a href="/" class="header__title">TMDB Movie Browser</a>
+                </div>
             </header>`
         );
     }

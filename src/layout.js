@@ -10,7 +10,10 @@ import {
     SearchResults,
     SearchResult,
     Movie,
-    Loader
+    MovieBanner,
+    MovieStats,
+    Loader,
+    Pagers
 } from './components';
 
 export default {
@@ -46,8 +49,16 @@ export default {
                     ]
                 },
                 {
+                    component: Pagers,
+                    if: state => state.isSearchView && state.results.hasMultiplePages
+                },
+                {
                     component: Movie,
-                    if: state => state.isMovieView
+                    if: state => state.isMovieView,
+                    children: [
+                        MovieBanner,
+                        MovieStats
+                    ]
                 },
                 {
                     component: ErrorMessage,

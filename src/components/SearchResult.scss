@@ -1,0 +1,35 @@
+.search-result {
+    display: block;
+    background: white;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    max-width: 40rem;
+    color: $color-text-dark;
+    border-bottom: 1px solid $color-light-grey;
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
+}
+
+.search-result__title {
+    @extend %medium-heading;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 150ms;
+
+    .search-result:hover & {
+        color: $color-tmdb;
+    }
+}
+
+.search-result__year {
+    font-weight: 400;
+    font-size: 0.6em;
+}
+
+.search-result__overview {
+    @extend %paragraph;
+}

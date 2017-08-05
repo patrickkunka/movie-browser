@@ -1,0 +1,7 @@
+.header {
+    background: $color-light-grey;
+}
+
+.header__title {
+    @extend %small-uppercase-heading;
+}
