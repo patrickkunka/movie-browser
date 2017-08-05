@@ -11,3 +11,4 @@ export const ACTION_NAVIGATE_TO_MOVIE       = Symbol('ACTION_NAVIGATE_TO_MOVIE')
 export const ACTION_RECEIVE_SUGGESTIONS     = Symbol('ACTION_RECEIVE_SUGGESTIONS');
 
 export const RESULTS_PER_PAGE = 20;
+export const MAX_SUGGESTIONS = 6;

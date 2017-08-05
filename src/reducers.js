@@ -12,7 +12,8 @@ import {
     VIEW_SEARCH,
     VIEW_MOVIE,
     VIEW_ERROR,
-    RESULTS_PER_PAGE
+    RESULTS_PER_PAGE,
+    MAX_SUGGESTIONS
 } from './constants';
 
 const rootReducer = (prevState, action) => {
@@ -59,9 +60,9 @@ const rootReducer = (prevState, action) => {
             nextState.isFetchingSuggestions = false;
 
             nextState.suggestions.query = action.query;
-            nextState.suggestions.items = action.suggestions.results;
-            nextState.suggestions.totalResults = action.suggestions.total_results;
-            nextState.suggestions.itemsPerPage = RESULTS_PER_PAGE;
+            nextState.suggestions.items = action.suggestions.results.slice(0, MAX_SUGGESTIONS);
+            nextState.suggestions.totalResults = action.suggestions.length;
+            nextState.suggestions.itemsPerPage = MAX_SUGGESTIONS;
 
             return nextState;
         }

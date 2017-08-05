@@ -11,6 +11,8 @@ class SearchForm extends Component {
     constructor() {
         super(...arguments);
 
+        this.props.hasTyped = false;
+
         this.configure({
             refs: ['input'],
             events: [
@@ -44,9 +46,11 @@ class SearchForm extends Component {
      */
 
     handleSubmit(e) {
-        const query = encodeURIComponent(this.refs.input.value);
+        const query = encodeURIComponent(this.refs.input.value.trim());
 
         e.preventDefault();
+
+        this.props.hasTyped = false;
 
         this.stateManager.dispatch(beginNavigation)
             .then(() => this.stateManager.navigate(`/search/?query=${query}`))
@@ -58,13 +62,21 @@ class SearchForm extends Component {
      */
 
     handleKeypress() {
-        const query = this.refs.input.value;
+        const query = this.refs.input.value.trim();
         const state = this.stateManager.getState();
         const hasSuggestions = state.suggestions.items.length > 0;
 
-        if (state.isFetchingSuggestions || !hasSuggestions && query.length < MIN_AUTO_QUERY_LENGTH) {
+        if (
+            state.isFetchingSuggestions ||
+            !hasSuggestions && query.length < MIN_AUTO_QUERY_LENGTH ||
+            (state.results.query === query && !this.props.hasTyped)
+        ) {
+            // Do not perform auto querying under any of the above conditions
+
             return;
         }
+
+        this.props.hasTyped = true;
 
         Promise.resolve()
             .then(() => {
