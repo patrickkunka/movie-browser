@@ -1,8 +1,11 @@
 import {
     ACTION_BEGIN_NAVIGATION,
+    ACTION_BEGIN_FETCH_SUGGESTIONS,
+    ACTION_CLEAR_SUGGESTIONS,
     ACTION_HANDLE_ERROR,
     ACTION_NAVIGATE_TO_SEARCH,
-    ACTION_NAVIGATE_TO_MOVIE
+    ACTION_NAVIGATE_TO_MOVIE,
+    ACTION_RECEIVE_SUGGESTIONS
 } from './constants';
 
 import Tmdb from './services/Tmdb';
@@ -12,6 +15,18 @@ import Tmdb from './services/Tmdb';
  */
 
 export const beginNavigation = () => ({type: ACTION_BEGIN_NAVIGATION});
+
+/**
+ * @return {object}
+ */
+
+export const beginFetchSuggestions = () => ({type: ACTION_BEGIN_FETCH_SUGGESTIONS});
+
+/**
+ * @return {object}
+ */
+
+export const clearSuggestions = () => ({type: ACTION_CLEAR_SUGGESTIONS});
 
 /**
  * @return {object}
@@ -58,4 +73,20 @@ export const navigateToMovie = (request) => () => {
             };
         })
         .catch(handleError);
+};
+
+/**
+ * @param  {strig} query
+ * @return {function}
+ */
+
+export const receiveSuggestions = (query) => () => {
+    return Tmdb.searchMovies(query)
+        .then(suggestions => {
+            return {
+                type: ACTION_RECEIVE_SUGGESTIONS,
+                query,
+                suggestions
+            };
+        });
 };

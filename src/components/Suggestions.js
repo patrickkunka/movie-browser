@@ -1,8 +1,12 @@
 import {Component} from '../generic';
 
 class Suggestions extends Component {
-    render() {
-        return '<div></div>';
+    shouldUpdate(nextState) {
+        return this.state.suggestions.query !== nextState.suggestions.query;
+    }
+
+    render(state, props, children) {
+        return `<ul>${children}</ul>`;
     }
 }
 

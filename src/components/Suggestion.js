@@ -1,8 +1,8 @@
 import {Component} from '../generic';
 
 class Suggestion extends Component {
-    render() {
-        return '<div></div>';
+    render(state, props) {
+        return `<li><a href="/${props.id}/">${props.original_title}</a></li>`;
     }
 }
 

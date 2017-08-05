@@ -3,7 +3,7 @@ import {ERROR_NOT_FOUND} from './generic/Router';
 
 import config  from '../config';
 import routes  from './routes';
-import layout  from './layouts/root';
+import layout  from './layout';
 import reducer from './reducers';
 import Tmdb    from './services/Tmdb';
 
