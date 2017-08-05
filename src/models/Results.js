@@ -1,5 +1,6 @@
 class Results {
     constructor() {
+        this.query        = '';
         this.items        = [];
         this.activePage   = 1;
         this.totalResults = 0;

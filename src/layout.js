@@ -11,7 +11,7 @@ import {
     SearchResult,
     Movie,
     Loader
-} from '../components';
+} from './components';
 
 export default {
     component: Root,
@@ -26,11 +26,10 @@ export default {
                     children: [
                         {
                             component: Suggestions,
-                            if: state => state.hasSuggestions,
                             children: [
                                 {
                                     component: Suggestion,
-                                    forEach: state => state.suggestions
+                                    forEach: state => state.suggestions.items
                                 }
                             ]
                         }
@@ -38,7 +37,7 @@ export default {
                 },
                 {
                     component: SearchResults,
-                    if: state => state.isSearchView && state.hasQuery,
+                    if: state => state.isSearchView && state.hasResults,
                     children: [
                         {
                             component: SearchResult,

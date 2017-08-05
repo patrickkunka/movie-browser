@@ -8,15 +8,14 @@ import Results from './Results';
 
 class State {
     constructor() {
-        this.view           = '';
-        this.url            = '';
-        this.path           = '';
-        this.query          = '';
-        this.suggestions    = new Results();
-        this.results        = new Results();
-        this.isNavigating   = false;
-        this.isFetching     = false;
-        this.movie          = null;
+        this.view                  = '';
+        this.url                   = '';
+        this.path                  = '';
+        this.suggestions           = new Results();
+        this.results               = new Results();
+        this.isNavigating          = false;
+        this.isFetchingSuggestions = false;
+        this.movie                 = null;
 
         Object.seal(this);
     }
@@ -39,10 +38,6 @@ class State {
 
     get hasResults() {
         return this.results.totalResults > 0;
-    }
-
-    get hasQuery() {
-        return this.query !== '';
     }
 }
 
