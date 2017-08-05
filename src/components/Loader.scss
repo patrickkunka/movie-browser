@@ -3,12 +3,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 200ms;
 }
 
 .loader--active {
     @include fill();
 
     position: fixed;
+}
+
+.loader--show {
     background: rgba(white, 0.5);
 }
 
@@ -25,7 +29,7 @@
     transform: scale(0);
     vertical-align: middle;
 
-    .loader--active & {
+    .loader--show & {
         animation: fx $animation-speed ease infinite 0ms;
 
         &:nth-child(2) {

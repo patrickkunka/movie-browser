@@ -5,6 +5,12 @@ class Loader extends Component {
         return this.state.isNavigating !== nextState.isNavigating;
     }
 
+    onMount() {
+        if (this.state.isNavigating) {
+            setTimeout(() => this.refs.root.classList.add('loader--show'), 1);
+        }
+    }
+
     render(state) {
         return `<div class="loader${state.isNavigating ? ' loader--active' : ''}">
             <div class="loader__dot"></div>
