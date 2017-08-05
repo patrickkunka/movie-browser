@@ -73,6 +73,8 @@ class StateManager {
                 return returnValue;
             })
             .then(action => {
+                console.log(action.type);
+
                 const nextState = [action].reduce(this.reducer, this.state);
 
                 this.state = Object.freeze(nextState);

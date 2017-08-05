@@ -9,6 +9,7 @@ class App {
 
         this.router       = new Router(this.config.routes);
         this.stateManager = new StateManager(this.router, this.config.reducer);
+        this.renderer     = new Renderer(this.stateManager);
 
         this.root = Renderer.buildTreeFromNode(this.config.layout);
 
@@ -26,7 +27,7 @@ class App {
     start(url) {
         return this.stateManager.init(url)
             .then(initialState => {
-                const rootEl = Renderer.renderNode(initialState, {}, this.root);
+                const rootEl = this.renderer.renderNode(initialState, {}, this.root);
 
                 document.body.insertBefore(rootEl, document.body.lastElementChild);
             });

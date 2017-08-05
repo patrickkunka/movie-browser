@@ -1,7 +1,16 @@
-import LayoutItem from './LayoutItem';
-import Component  from './Component';
+import LayoutItem   from './LayoutItem';
+import Component    from './Component';
+import StateManager from './StateManager';
 
 class Renderer {
+    constructor(stateManager) {
+        if (!(stateManager instanceof StateManager)) throw new TypeError(ERROR_STATE_MANAGER_NOT_INJECTED);
+
+        this.stateManager = stateManager;
+
+        Object.seal(this);
+    }
+
     /**
      * @param  {object}     state
      * @param  {object}     parent
@@ -9,11 +18,11 @@ class Renderer {
      * @return {(HTMLElement|DocumentFragment)}
      */
 
-    static renderNode(state, parent, node) {
+    renderNode(state, parent, node) {
         if (typeof (node.forEach) === 'function') {
             // Multiple nodes
 
-            return Renderer.renderNodeForEach(state, parent, node);
+            return this.renderNodeForEach(state, parent, node);
         }
 
         // Single node
@@ -29,7 +38,7 @@ class Renderer {
         const temp = document.createElement('div');
 
         const children = node.children.reduce((frag, child) => {
-            frag.appendChild(Renderer.renderNode(state, instance.props || {}, child));
+            frag.appendChild(this.renderNode(state, instance.props || {}, child));
 
             return frag;
         }, document.createDocumentFragment());
@@ -42,6 +51,10 @@ class Renderer {
             // Else, class style
 
             html = instance.render(state, instance.props, CHILD_MARKER);
+
+            // Give each component access to the application state manager
+
+            instance.stateManager = this.stateManager;
 
             // Add a reference to instance in the layout tree
 
@@ -62,8 +75,10 @@ class Renderer {
             el.replaceChild(children, marker);
         }
 
-        if (instance.refs) {
+        if (instance instanceof Component) {
             instance.refs.root = el;
+
+            instance.mount();
         }
 
         return el;
@@ -76,13 +91,13 @@ class Renderer {
      * @return {DocumentFragment}
      */
 
-    static renderNodeForEach(state, parent, node) {
-        const iterable = node.forEeach(state, parent);
+    renderNodeForEach(state, parent, node) {
+        const iterable = node.forEach(state, parent);
         const frag = document.createDocumentFragment();
 
         if (iterable && Array.isArray(iterable)) {
             return iterable.reduce((frag, item) => {
-                frag.appendChild(Renderer.renderNode(state, item, {
+                frag.appendChild(this.renderNode(state, item, {
                     component: node.component,
                     children: node.children,
                     instances: node.instances
@@ -116,5 +131,7 @@ class Renderer {
 
 const CHILD_MARKER          = '<div id="child-marker"></div>';
 const CHILD_MARKER_SELECTOR = '#child-marker';
+
+export const ERROR_STATE_MANAGER_NOT_INJECTED = '[StateManager] State manager must be injected';
 
 export default Renderer;

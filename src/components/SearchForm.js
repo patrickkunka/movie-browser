@@ -1,5 +1,9 @@
 import {Component} from '../generic';
 
+import {
+    beginNavigation
+} from '../actions';
+
 class SearchForm extends Component {
     constructor() {
         super(...arguments);
@@ -20,6 +24,8 @@ class SearchForm extends Component {
         const query = encodeURIComponent(this.refs.input.value);
 
         e.preventDefault();
+
+        this.stateManager.dispatch(beginNavigation);
 
         this.stateManager.navigate(`/search/?query=${query}`)
             .catch(err => console.error(err));

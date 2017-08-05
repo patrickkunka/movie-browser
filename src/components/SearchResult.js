@@ -1,8 +1,12 @@
 import {Component} from '../generic';
 
 class SearchResult extends Component {
-    render() {
-        return '<div></div>';
+    render(state, props) {
+        return (
+            `<a href="/${props.id}/" class="search-result">
+                <h2 class="search-result__title">${props.original_title}</h2>
+            </a>`
+        );
     }
 }
 

@@ -13,7 +13,7 @@ export default [
         action: navigateToSearch
     },
     {
-        pattern: '/:slug/',
+        pattern: '/:id/',
         action: navigateToMovie
     }
 ];

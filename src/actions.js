@@ -4,6 +4,8 @@ import {
     ACTION_NAVIGATE_TO_MOVIE
 } from './constants';
 
+import Tmdb from './services/Tmdb';
+
 /**
  * @return {object}
  */
@@ -16,12 +18,19 @@ export const beginNavigation = () => ({type: ACTION_BEGIN_NAVIGATION});
  */
 
 export const navigateToSearch = (request) => () => {
-    const query = request.query.query;
+    const query = request.query.query || '';
 
     return Promise.resolve()
         .then(() => {
+            if (!query) return null;
+
+            return Tmdb.searchMovies(query);
+        })
+        .then(results => {
             return {
-                type: ACTION_NAVIGATE_TO_SEARCH
+                type: ACTION_NAVIGATE_TO_SEARCH,
+                query: decodeURIComponent(query),
+                results
             };
         });
 };
@@ -32,14 +41,13 @@ export const navigateToSearch = (request) => () => {
  */
 
 export const navigateToMovie = (request) => () => {
-    const slug = request.params.slug;
+    const id = request.params.id;
 
-    // TODO: Call API with slug
-
-    return Promise.resolve()
-        .then(() => {
+    return Tmdb.getMovie(id)
+        .then(movie => {
             return {
-                type: ACTION_NAVIGATE_TO_MOVIE
+                type: ACTION_NAVIGATE_TO_MOVIE,
+                movie
             };
         });
 };
