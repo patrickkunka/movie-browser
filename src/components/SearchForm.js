@@ -25,9 +25,8 @@ class SearchForm extends Component {
 
         e.preventDefault();
 
-        this.stateManager.dispatch(beginNavigation);
-
-        this.stateManager.navigate(`/search/?query=${query}`)
+        this.stateManager.dispatch(beginNavigation)
+            .then(() => this.stateManager.navigate(`/search/?query=${query}`))
             .catch(err => console.error(err));
     }
 

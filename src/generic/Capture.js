@@ -84,6 +84,10 @@ class Capture {
                 return params;
             }, request.params);
 
+            // Ensure expression is reset
+
+            this.re.lastIndex = 0;
+
             return request;
         }
 

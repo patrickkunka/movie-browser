@@ -8,9 +8,10 @@ class StateManager {
             throw new Error(ERROR_REDUCER_NOT_INJECTED);
         }
 
-        this.state  = {};
-        this.router = router;
-        this.reducer = reducer;
+        this.state      = {};
+        this.router     = router;
+        this.reducer    = reducer;
+        this.renderer   = null;
 
         Object.seal(this);
     }
@@ -79,6 +80,8 @@ class StateManager {
 
                 this.state = Object.freeze(nextState);
 
+                this.renderer.updateComponent(this.state, {}, this.renderer.root);
+
                 return this.state;
             });
     }
@@ -103,6 +106,10 @@ class StateManager {
 
             state = Object.assign(new State(), state);
         }
+
+        this.state = Object.freeze(state);
+
+        this.renderer.updateComponent(this.state, {}, this.renderer.root);
 
         return state;
     }

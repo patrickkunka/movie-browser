@@ -11,7 +11,7 @@ class App {
         this.stateManager = new StateManager(this.router, this.config.reducer);
         this.renderer     = new Renderer(this.stateManager);
 
-        this.root = Renderer.buildTreeFromNode(this.config.layout);
+        this.root = this.renderer.root = Renderer.buildTreeFromLayoutItem(this.config.layout);
 
         Object.seal(this);
     }
@@ -26,8 +26,8 @@ class App {
 
     start(url) {
         return this.stateManager.init(url)
-            .then(initialState => {
-                const rootEl = this.renderer.renderNode(initialState, {}, this.root);
+            .then(() => {
+                const rootEl = this.renderer.getRootEl();
 
                 document.body.insertBefore(rootEl, document.body.lastElementChild);
             });

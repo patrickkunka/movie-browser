@@ -8,6 +8,10 @@ class LayoutItem {
 
         Object.seal(this);
     }
+
+    get isMounted() {
+        return this.instances.length > 0;
+    }
 }
 
 export default LayoutItem;
