@@ -1,0 +1,31 @@
+.pagers {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.pager {
+    @extend %base-type;
+
+    display: inline-block;
+    text-align: center;
+    min-width: 7rem;
+    color: $color-text-dark;
+    font-weight: 700;
+    padding: .75rem;
+    box-shadow: 0 0 6px rgba(black, 0.15);
+    border-radius: 2px;
+
+    &:hover {
+        box-shadow: 0 0 6px rgba(black, 0.075);
+    }
+
+    &:after {
+        content: '';
+
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 0.75rem;
+        border: 5px solid transparent;
+        border-left: 7px solid $color-tmdb;
+    }
+}

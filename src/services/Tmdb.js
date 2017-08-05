@@ -3,11 +3,12 @@ class Tmdb {
      * Searches for movies matching the provided query.
      *
      * @param  {string} query
+     * @param  {number} page
      * @return {Promise.<object>}
      */
 
-    static searchMovies(query) {
-        return fetch(`${API_PATH}search/movie?api_key=${API_KEY}&query=${query}`)
+    static searchMovies(query, page) {
+        return fetch(`${API_PATH}search/movie?api_key=${API_KEY}&query=${query}&page=${page}`)
             .then(response => response.json());
     }
 

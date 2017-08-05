@@ -1,15 +1,15 @@
 .search-results {
     flex: 1;
-    margin-bottom: 2rem;
 }
 
 .search-results__info {
     @extend %small-heading;
 
     margin-bottom: 2rem;
-    color: $color-medium-grey;
+    color: $color-text-dark;
+    font-weight: 400;
 
     strong {
-        color: $color-text-dark;
+        font-weight: 700;
     }
 }

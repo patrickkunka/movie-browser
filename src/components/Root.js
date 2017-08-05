@@ -4,6 +4,9 @@ import {
     beginNavigation
 } from '../actions';
 
+import State   from '../models/State';
+import Results from '../models/Results';
+
 class Root extends Component {
     constructor() {
         super(...arguments);
@@ -51,7 +54,13 @@ class Root extends Component {
      */
 
     handlePopState(e) {
-        this.stateManager.receivePoppedState(e.state);
+        const plainState = e.state;
+        const state = Object.assign(new State(), plainState);
+
+        state.results = Object.assign(new Results(), state.results);
+        state.suggestions = Object.assign(new Results(), state.suggestions);
+
+        this.stateManager.receivePoppedState(state);
     }
 
     shouldUpdate() {

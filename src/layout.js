@@ -8,6 +8,7 @@ import {
     Suggestions,
     Suggestion,
     SearchResults,
+    SearchResultsInfo,
     SearchResult,
     Movie,
     MovieBanner,
@@ -40,8 +41,12 @@ export default {
                 },
                 {
                     component: SearchResults,
-                    if: state => state.isSearchView && state.hasResults,
+                    if: state => state.isSearchView,
                     children: [
+                        {
+                            component: SearchResultsInfo,
+                            if: state => state.results.hasQuery
+                        },
                         {
                             component: SearchResult,
                             forEach: state => state.results.items
@@ -50,7 +55,7 @@ export default {
                 },
                 {
                     component: Pagers,
-                    if: state => state.isSearchView && state.results.hasMultiplePages
+                    if: state => state.isSearchView && state.results.hasMultiplePages && !state.results.isLastPage
                 },
                 {
                     component: Movie,

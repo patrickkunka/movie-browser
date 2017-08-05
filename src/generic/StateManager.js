@@ -45,6 +45,8 @@ class StateManager {
             .then(nextState => {
                 StateManager.updateHistory(nextState, url, historyManipulation);
 
+                window.scrollTo(0, 0);
+
                 return nextState;
             });
     }
@@ -89,26 +91,14 @@ class StateManager {
     }
 
     /**
-     * Receives a plain state object from the browser in response to
+     * Receives a state object from the browser in response to
      * history back/forward and updates the application state accordingly.
      *
-     * @param  {*} plainState
+     * @param  {*} state
      * @return {object}
      */
 
-    receivePoppedState(plainState) {
-        const prevState = this.state;
-        const prototype = Object.getPrototypeOf(prevState);
-
-        let State = null;
-        let state = plainState;
-
-        if ((State = prototype.constructor) !== Object) {
-            // Consumer has implemented a custom state model, coerce
-
-            state = Object.assign(new State(), state);
-        }
-
+    receivePoppedState(state) {
         this.state = Object.freeze(state);
 
         this.renderer.updateComponent(this.state, {}, this.renderer.root);

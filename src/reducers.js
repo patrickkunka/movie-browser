@@ -41,6 +41,7 @@ const rootReducer = (prevState, action) => {
 
             if (action.results) {
                 nextState.results.items = action.results.results;
+                nextState.results.activePage = action.page;
                 nextState.results.totalResults = action.results.total_results;
                 nextState.results.itemsPerPage = RESULTS_PER_PAGE;
             }

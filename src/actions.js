@@ -41,17 +41,19 @@ export const handleError = () => ({type: ACTION_HANDLE_ERROR});
 
 export const navigateToSearch = (request) => () => {
     const query = request.query.query || '';
+    const page  = parseInt(request.query.page || 1);
 
     return Promise.resolve()
         .then(() => {
             if (!query) return null;
 
-            return Tmdb.searchMovies(query);
+            return Tmdb.searchMovies(query, page);
         })
         .then(results => {
             return {
                 type: ACTION_NAVIGATE_TO_SEARCH,
                 query: decodeURIComponent(query),
+                page,
                 results
             };
         });
