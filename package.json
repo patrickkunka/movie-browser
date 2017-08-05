@@ -5,8 +5,11 @@
   "private": true,
   "scripts": {
     "test": "mocha --compilers babel-register ./test/unit.js",
-    "build": "./node_modules/.bin/webpack",
-    "watch": "./node_modules/.bin/webpack --watch",
+    "build:webpack": "./node_modules/.bin/webpack",
+    "watch:webpack": "./node_modules/.bin/webpack --watch",
+    "build:css": "node-sass ./src/scss/styles.scss ./dist/css/styles.css",
+    "watch:css": "onchange \"./src/scss/*.scss\" \"./src/components/*.scss\" -- npm run build:css",
+    "build": "npm run build:webpack && npm run build:css",
     "start": "node ./server.js"
   },
   "devDependencies": {
@@ -20,6 +23,8 @@
     "create-index": "^2.2.0",
     "express": "^4.15.3",
     "mocha": "^3.5.0",
+    "node-sass": "^4.5.3",
+    "onchange": "^3.2.1",
     "webpack": "^3.4.1"
   }
 }

@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/init.js',
     output: {
         filename: 'app.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist', 'js')
     },
     devtool: 'source-map',
     module: {

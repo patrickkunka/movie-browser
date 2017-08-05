@@ -18,9 +18,6 @@ const app = new App({
 });
 
 app.start(window.location.pathname + window.location.search)
-    .then(() => {
-        console.log('App ready');
-    })
     .catch(err => {
         switch (err.message) {
             case ERROR_NOT_FOUND:

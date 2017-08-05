@@ -1,0 +1,56 @@
+@mixin breakMin($point) {
+    @media all and (min-width: ($point + 1px)) {
+        @content;
+    }
+}
+
+@mixin breakMax($point) {
+    @media all and (max-width: $point) {
+        @content;
+    }
+}
+
+@mixin breakRange($minPoint, $maxPoint) {
+    @media all and (min-width: ($minPoint + 1)) and (max-width: $maxPoint) {
+        @content;
+    }
+}
+
+@mixin fill($position: absolute) {
+    position: $position;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin stretch($position: absolute) {
+    position: $position;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin crisp() {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin tapTarget($width: 36px, $height: 36px) {
+    position: absolute;
+    height: $height;
+    width: $width;
+    top: calc(50% - #{$height / 2});
+    left: calc(50% - #{$width / 2});
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+}
+
+@mixin placeholder() {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder           {@content}
+    &::-moz-placeholder          {@content}
+    &:-ms-input-placeholder      {@content}
+}
