@@ -37,6 +37,7 @@ class Component {
         this.bindings.push(...this.config.events.map(bindingRaw => {
             const binding = Object.assign(new EventBinding(), bindingRaw);
             const handler = this[binding.bind];
+            const eventTypes = Array.isArray(binding.on) ? binding.on : [binding.on];
 
             binding.el = binding.ref === '' ? window : this.refs[binding.ref];
 
@@ -50,14 +51,18 @@ class Component {
                 binding.fn = Util.debounce(binding.fn, binding.debounce);
             }
 
-            binding.el.addEventListener(binding.on, binding.fn);
+            eventTypes.forEach(type => binding.el.addEventListener(type, binding.fn));
 
             return binding;
         }));
     }
 
     unbindHandlers() {
-        this.bindings.forEach(binding => binding.el.removeEventListener(binding.on, binding.fn));
+        this.bindings.forEach(binding => {
+            const eventTypes = Array.isArray(binding.on) ? binding.on : [binding.on];
+
+            eventTypes.forEach(type => binding.el.removeEventListener(type, binding.fn));
+        });
     }
 
     mount() {
