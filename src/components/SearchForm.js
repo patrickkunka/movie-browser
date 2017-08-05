@@ -20,6 +20,10 @@ class SearchForm extends Component {
         });
     }
 
+    shouldUpdate(nextState) {
+        return this.state.query !== nextState.query;
+    }
+
     handleSubmit(e) {
         const query = encodeURIComponent(this.refs.input.value);
 

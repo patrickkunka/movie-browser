@@ -2,6 +2,12 @@ import LayoutItem   from './LayoutItem';
 import Component    from './Component';
 import StateManager from './StateManager';
 
+const STATUS_ADDED      = Symbol('STATUS_ADDED');
+const STATUS_UDPATED    = Symbol('STATUS_UPDATED');
+const STATUS_REMOVED    = Symbol('STATUS_REMOVED');
+const STATUS_INACTIVE   = Symbol('STATUS_INACTIVE');
+const STATUS_ACTIVE     = Symbol('STATUS_ACTIVE');
+
 class Renderer {
     constructor(stateManager) {
         if (!(stateManager instanceof StateManager)) throw new TypeError(ERROR_STATE_MANAGER_NOT_INJECTED);
@@ -15,6 +21,9 @@ class Renderer {
     }
 
     /**
+     * Renders one or more components for a provided layout item,
+     * against the application state.
+     *
      * @param  {object}     state
      * @param  {object}     parent
      * @param  {LayoutItem} layoutItem
@@ -88,6 +97,9 @@ class Renderer {
     }
 
     /**
+     * Renders multiple components for a LayoutItem
+     * representing an array of data.
+     *
      * @param  {object}     state
      * @param  {object}     parent
      * @param  {LayoutItem} layoutItem
@@ -114,49 +126,63 @@ class Renderer {
     }
 
     /**
+     * Determines if and how a component should be updated in response to
+     * a change in application state.
+     *
      * @param   {object}      state
      * @param   {object}      parent
      * @param   {Layoutitem}  layoutItem
-     * @return  {void}
+     * @return  {boolean}
      */
 
     updateComponent(state, parent, layoutItem) {
         if (!Renderer.shouldRenderComponent(state, parent, layoutItem)) {
             if (layoutItem.isMounted) {
-                // Dismount, remove self and all children
-
-                console.log('REMOVE', layoutItem.component.name);
+                // REMOVED
 
                 Renderer.unmountComponents(layoutItem).forEach(el => el.parentElement.removeChild(el));
+
+                return STATUS_REMOVED;
             }
 
-            return;
+            // INACTIVE
+
+            return STATUS_INACTIVE;
         }
 
         if (layoutItem.isMounted && Renderer.shouldUpdateComponent(state, parent, layoutItem)) {
-            // Mounted and should update
-
-            console.log('UPDATE', layoutItem.component.name);
+            // UPDATED
 
             this.replaceComponent(state, parent, layoutItem);
+
+            return STATUS_UDPATED;
         } else if (layoutItem.isMounted) {
-            // Mounted and should not update
+            // ACTIVE
 
             const instance = layoutItem.instances[0];
 
-            // TODO - how to deal with forEach?
+            const statuses = layoutItem.children.map(item => this.updateComponent(state, instance.props, item));
 
-            // recurse children
+            this.insertChildComponents(state, parent, layoutItem, statuses);
 
-            layoutItem.children.forEach(item => this.updateComponent(state, instance.props, item));
-
-            // if frag returned from children has items (new), re render self with children
-        } else if (!layoutItem.isMounted) {
-            console.log('INSERT', layoutItem.component.name);
-
-            this.renderComponent(state, parent, layoutItem);
+            return STATUS_ACTIVE;
         }
+
+        // ADDED
+
+        this.renderComponent(state, parent, layoutItem);
+
+        return STATUS_ADDED;
     }
+
+    /**
+     * Re-renders an updated component and replaces its root
+     * element in the DOM.
+     *
+     * @param {object} state
+     * @param {object} parent
+     * @param {layoutItem} layoutItem
+     */
 
     replaceComponent(state, parent, layoutItem) {
         const prevElements = Renderer.unmountComponents(layoutItem);
@@ -172,14 +198,69 @@ class Renderer {
         ElementToReplace.parentElement.replaceChild(nextElements, ElementToReplace);
     }
 
+    /**
+     * Determines if any new children were added to an existing mounted
+     * component, and if so, inserts them into the DOM next to an
+     * existing sibling, or re-renders the parent.
+     *
+     * @param  {object}         state
+     * @param  {parent}         parent
+     * @param  {LayoutItem}     layoutItem
+     * @param  {Array.<Symbol>} childStatuses
+     * @return {void}
+     */
+
+    insertChildComponents(state, parent, layoutItem, childStatuses) {
+        const addedIndex  = childStatuses.indexOf(STATUS_ADDED);
+        const activeIndex = childStatuses.indexOf(STATUS_ACTIVE);
+
+        if (addedIndex < 0) {
+            // No children added
+
+            return;
+        }
+
+        if (activeIndex < 0) {
+            // No active children exist, parent must be re-rendered;
+
+            this.replaceComponent(state, parent, layoutItem);
+
+            return;
+        }
+
+        const childMarker = document.createElement('div');
+        const frag = document.createDocumentFragment();
+        const activeElement = this.getRootEl(layoutItem.children[activeIndex]);
+
+        // Insert childMarker into DOM after any active element
+
+        activeElement.parentElement.insertBefore(childMarker, activeElement);
+
+        // Push all mounted elements into the frag
+
+        childStatuses.forEach((status, i) => {
+            if ([STATUS_ACTIVE, STATUS_ADDED].indexOf(status) > -1) {
+                frag.appendChild(this.getRootEl(layoutItem.children[i]));
+            }
+        });
+
+        // Replace childMarker with frag
+
+        childMarker.parentElement.replaceChild(frag, childMarker);
+    }
 
     /**
+     * Returns the root element of a mounted layout item, defaulting
+     * to the tree root if not provided.
+     *
+     * @param {LayoutItem} [layoutItem=this.root]
      * @return {(HTMLElement|null)}
      */
 
-    getRootEl() {
-        return this.root.isMounted ? this.root.instances[0].refs.root : null;
+    getRootEl(layoutItem=this.root) {
+        return layoutItem.isMounted ? layoutItem.instances[0].refs.root : null;
     }
+
 
     /**
      * @static
