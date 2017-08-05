@@ -1,5 +1,6 @@
 import ConfigComponent from './ConfigComponent';
 import EventBinding    from './EventBinding';
+import Util            from './Util';
 
 class Component {
     constructor(state, parent) {
@@ -44,6 +45,10 @@ class Component {
             if (typeof handler !== 'function') throw new TypeError(errorHandlerNotFound(binding.bind));
 
             binding.fn = handler.bind(this);
+
+            if (binding.debounce > 0) {
+                binding.fn = Util.debounce(binding.fn, binding.debounce);
+            }
 
             binding.el.addEventListener(binding.on, binding.fn);
 

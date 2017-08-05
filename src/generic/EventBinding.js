@@ -1,10 +1,11 @@
 class EventBinding {
     constructor() {
-        this.ref    = '';
-        this.on     = '';
-        this.bind   = '';
-        this.el     = null;
-        this.fn     = null;
+        this.ref      = '';
+        this.on       = '';
+        this.bind     = '';
+        this.debounce = -1;
+        this.el       = null;
+        this.fn       = null;
 
         Object.seal(this);
     }
