@@ -11,8 +11,8 @@
 
 .search-form__input {
     font-family: $font-sans;
-    font-weight: 200;
-    font-size: 2rem;
+    font-weight: 400;
+    font-size: 1.2rem;
     width: 100%;
     border: 0;
     border-bottom: 2px solid $color-light-grey;
@@ -78,5 +78,12 @@
 
     &:last-child {
         border-bottom: 2px solid $color-light-grey;
+    }
+}
+
+@include breakMin($break-small) {
+    .search-form__input {
+        font-size: 2rem;
+        font-weight: 200;
     }
 }

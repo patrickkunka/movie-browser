@@ -20,7 +20,7 @@ class MovieBanner extends Component {
                         </div>
 
                         <div class="movie-banner__text">
-                            <h2 class="movie-banner__title">${state.movie.original_title} <span class="movie-banner__year">${Helpers.year(state.movie.release_date)}</span></h2>
+                            <h2 class="movie-banner__title">${state.movie.original_title}&nbsp;<span class="movie-banner__year">${Helpers.year(state.movie.release_date)}</span></h2>
 
                             <p class="movie-banner__overview">${Helpers.truncate(state.movie.overview, 190)}</p>
                         </div>

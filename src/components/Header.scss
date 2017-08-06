@@ -1,7 +1,28 @@
+$logo-size: 12px;
+
 .header {
     background: $color-light-grey;
+
+}
+
+.header__title > * {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .header__title {
     @extend %small-uppercase-heading;
+
+    &:hover .header__logo {
+        opacity: 0.5;
+    }
+}
+
+.header__logo {
+    background: $color-tmdb;
+    height: $logo-size;
+    width: $logo-size;
+    border-radius: 999px;
+    margin-right: 0.5rem;
+    transition: opacity 150ms;
 }

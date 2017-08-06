@@ -50,7 +50,7 @@ class Helpers {
      */
 
     static year(input) {
-        return new Date(input).getFullYear();
+        return input ? new Date(input).getFullYear() : '';
     }
 }
 

@@ -52,13 +52,14 @@
     @include fill();
 }
 
+.movie-banner__text {
+    max-width: 35rem;
+}
+
 .movie-banner__title {
     @extend %medium-heading;
 
     color: white;
-    line-height: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     font-size: 1.5rem;
 }
 
