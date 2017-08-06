@@ -8,7 +8,7 @@ This project provides a means of searching for and browsing movies using the TMD
 
 The project is split into various business-logic specific UI components and services, and a collection of "generic" components, services and extensible base classes, which can be thought of as a mini framework upon which the application is built.
 
-No frameworks or UI libraries have been used, although several commonly used patterns are implemented:
+No third-party frameworks or UI libraries have been used, although several commonly used patterns are implemented:
 - Immutable state
 - Uni-direction data flow
 - Reactive components
@@ -37,6 +37,8 @@ To build the project, run `npm run build` from the project root.
 ### TMDB API Key
 
 In order to build a working application, you will need to provide a TMDB API key. This is provided via a gitignored `config.js` file in the project root, which should export an object containing at least the following:
+
+##### ./config.js
 
 ```js
 module.exports = {
