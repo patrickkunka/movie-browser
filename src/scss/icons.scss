@@ -1,0 +1,23 @@
+.icon {
+    height: 1em;
+    width: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+        height: 1em;
+        width: 1em;
+    }
+
+    polygon,
+    path,
+    circle {
+        fill: currentColor;
+    }
+
+    line,
+    polyline {
+        stroke: currentColor;
+    }
+}
