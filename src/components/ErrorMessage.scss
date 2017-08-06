@@ -1,0 +1,7 @@
+.error-message {
+    width: 100%;
+}
+
+.error-message__heading {
+    @extend %large-heading;
+}
