@@ -7,7 +7,8 @@ class Helpers {
      * Iterates through an array of strings, returning a
      * comma-seperate list, or "Unknown" if empty.
      *
-     * @param {Array.<string>} items
+     * @param  {Array.<string>} items
+     * @return {string}
      */
 
     static statsList(items) {
@@ -49,7 +50,7 @@ class Helpers {
     /**
      * Receives an ISO 8601 date string and returns the full year.
      *
-     * @param {string} input
+     * @param  {string} input
      * @return {string}
      */
 

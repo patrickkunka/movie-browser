@@ -32,6 +32,13 @@ class Tmdb {
             });
     }
 
+    /**
+     * Sets the TMDB API key for the duration of the session.
+     *
+     * @param  {string} apiKey
+     * @return {void}
+     */
+
     static setApiKey(apiKey) {
         API_KEY = apiKey;
     }

@@ -54,7 +54,7 @@ To run the unit tests, run `npm test` from the project root.
 
 ## Notes
 
-- All source code is 100% my own work. As well as taking inspiration from several popular front-end frameworks and tools, some ideas have also been adapted from my work on [Colony](https://www.wearecolony.com)'s CortexJS framework.
+- All source code is 100% my own work. As well as taking inspiration from several popular front-end frameworks and tools, some ideas have also been adapted from my work on [Colony](https://www.wearecolony.com)'s CortexJS framework. These include the "layout tree" idea, and the declarative component event-binding pattern.
 
 - One console log has been left in (at `./src/generic/StateManager.js#L94`) to indicate which actions are being applied to the application state and when.
 

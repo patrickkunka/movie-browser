@@ -6,6 +6,7 @@ class Footer extends Component {
 
         this.props.currentYear = new Date().getFullYear();
     }
+
     shouldUpdate() {
         return false;
     }
