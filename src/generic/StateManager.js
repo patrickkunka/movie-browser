@@ -1,5 +1,10 @@
 import Router from './Router';
 
+/**
+ * Manages changes to application state and browser
+ * history manipulaton.
+ */
+
 class StateManager {
     constructor(router, reducer) {
         if (!(router instanceof Router)) throw new Error(ERROR_ROUTER_NOT_INJECTED);

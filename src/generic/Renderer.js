@@ -2,11 +2,17 @@ import LayoutItem   from './LayoutItem';
 import Component    from './Component';
 import StateManager from './StateManager';
 
-const STATUS_ADDED      = Symbol('STATUS_ADDED');
-const STATUS_UDPATED    = Symbol('STATUS_UPDATED');
-const STATUS_REMOVED    = Symbol('STATUS_REMOVED');
-const STATUS_INACTIVE   = Symbol('STATUS_INACTIVE');
-const STATUS_ACTIVE     = Symbol('STATUS_ACTIVE');
+const STATUS_ADDED    = Symbol('STATUS_ADDED');
+const STATUS_UDPATED  = Symbol('STATUS_UPDATED');
+const STATUS_REMOVED  = Symbol('STATUS_REMOVED');
+const STATUS_INACTIVE = Symbol('STATUS_INACTIVE');
+const STATUS_ACTIVE   = Symbol('STATUS_ACTIVE');
+
+/**
+ * Builds or traverses the application layout tree whenever a
+ * change of state occurs. Manages the lifecycle of each
+ * component within the tree.
+ */
 
 class Renderer {
     constructor(stateManager) {

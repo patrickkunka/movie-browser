@@ -2,6 +2,11 @@ import ConfigComponent from './ConfigComponent';
 import EventBinding    from './EventBinding';
 import Util            from './Util';
 
+/**
+ * An abstract base class for consumer components to enherit from. Abstracts
+ * away DOM ref querying, event binding/unbinding and component lifecycle.
+ */
+
 class Component {
     constructor(state, parent) {
         this.config       = new ConfigComponent();
@@ -81,11 +86,11 @@ class Component {
     }
 
     onMount() {
-
+         // Placeholder
     }
 
     onUnmount() {
-
+        // Placeholder
     }
 
     render() {

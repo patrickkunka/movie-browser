@@ -1,3 +1,7 @@
+/**
+ * A static class of shared utility functions.
+ */
+
 class Util {
     /**
      * Checks if a provided URL is not on the same domain

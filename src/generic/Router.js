@@ -1,6 +1,11 @@
 import Capture from './Capture';
 import Route   from './Route';
 
+/**
+ * A basic router providing simple static and
+ * dynamic segment matching.
+ */
+
 class Router {
     constructor(routes) {
         this.routes   = [];

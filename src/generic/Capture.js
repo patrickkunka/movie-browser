@@ -1,5 +1,10 @@
 import Request from './Request';
 
+/**
+ * Holds regular expressions and extracted paramKeys for
+ * consumer-provided application routes.
+ */
+
 class Capture {
     constructor(pattern) {
         this.re         = null;

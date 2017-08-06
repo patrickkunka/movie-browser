@@ -1,3 +1,7 @@
+/**
+ * Various templating helper functions.
+ */
+
 class Helpers {
     /**
      * Iterates through an array of strings, returning a

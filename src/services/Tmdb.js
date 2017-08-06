@@ -1,3 +1,7 @@
+/**
+ * A simple static wrapper class over the TMDB API.
+ */
+
 class Tmdb {
     /**
      * Searches for movies matching the provided query.
