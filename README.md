@@ -14,7 +14,7 @@ No third-party frameworks or UI libraries have been used, although several commo
 - Reactive components
 - Composable views
 
-Rather than trying to recreate any specific framework, the above ideas and concepts have been taken as inspiration, and implemented in the most lightweight way possible to provide all functionality needed for the project while providing an extensible foundation to add more complex functionality if needed.
+Rather than trying to recreate any specific framework, the above ideas and concepts have been taken as inspiration, and implemented in the most lightweight way possible to provide only the functionality needed for the project while also providing an extensible foundation to add more complex functionality if needed.
 
 For example, in lieu of a rich templating language like JSX, views are composed using a "layout tree" (`./src/layout.js`), which also provides a high-level visualisation of the application view structure.
 
