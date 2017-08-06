@@ -81,9 +81,14 @@
     }
 }
 
+.search-form__suggestion-year {
+    font-weight: normal;
+    font-size: 0.6em;
+}
+
 @include breakMin($break-small) {
     .search-form__input {
         font-size: 2rem;
-        font-weight: 200;
+        font-weight: 300;
     }
 }

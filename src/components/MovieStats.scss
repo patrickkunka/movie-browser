@@ -8,6 +8,7 @@
         text-align: left;
         padding: .5rem 0;
         border-bottom: 1px solid $color-light-grey;
+        vertical-align: top;
     }
 
     th {
@@ -23,6 +24,11 @@
 
     font-size: 1rem;
     font-weight: bold;
+}
+
+.movie-stats__value {
+    display: inline-block;
+    max-width: 40rem;
 }
 
 @include breakMin($break-mid) {

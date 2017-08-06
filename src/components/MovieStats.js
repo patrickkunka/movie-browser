@@ -10,27 +10,27 @@ class MovieStats extends Component {
                     <tbody>
                         <tr>
                             <th>Genres</th>
-                            <td>${Helpers.statsList(state.movie.genres)}</td>
+                            <td><span class="movie-stats__value">${Helpers.statsList(state.movie.genres)}</span></td>
                         </tr>
                         <tr>
                             <th>Languages</th>
-                            <td>${Helpers.statsList(state.movie.spoken_languages)}</td>
+                            <td><span class="movie-stats__value">${Helpers.statsList(state.movie.spoken_languages)}</span></td>
                         </tr>
                         <tr>
                             <th>Year of Release</th>
-                            <td>${Helpers.year(state.movie.release_date)}</td>
+                            <td><span class="movie-stats__value">${Helpers.year(state.movie.release_date)}</span></td>
                         </tr>
                         <tr>
                             <th>Status</th>
-                            <td>${state.movie.status}</td>
+                            <td><span class="movie-stats__value">${state.movie.status}</span></td>
                         </tr>
                         <tr>
                             <th>Production Countries</th>
-                            <td>${Helpers.statsList(state.movie.production_countries)}</td>
+                            <td><span class="movie-stats__value">${Helpers.statsList(state.movie.production_countries)}</span></td>
                         </tr>
                         <tr>
                             <th>Production Companies</th>
-                            <td>${Helpers.statsList(state.movie.production_companies)}</td>
+                            <td><span class="movie-stats__value">${Helpers.statsList(state.movie.production_companies)}</span></td>
                         </tr>
                     </tbody>
                 </table>

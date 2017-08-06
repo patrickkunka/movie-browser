@@ -68,6 +68,12 @@ class SearchForm extends Component {
             const suggestion = state.suggestions.items[this.props.focussedSuggestionIndex];
 
             destination = `/${suggestion.id}/`;
+
+            if (!state.results.hasQuery) {
+                // Clear value
+
+                this.refs.input.value = '';
+            }
         }
 
         e.preventDefault();
