@@ -2,6 +2,8 @@
 
 A simple UI for searching [The Movie Database](https://www.themoviedb.org).
 
+The app can be viewed at [moviebrowser.kunkalabs.com](moviebrowser.kunkalabs.com).
+
 ## Overview
 
 This project provides a means of searching for and browsing movies using the TMDB API. A simple user interface is implemented consisting of a "home" view, a "search results" view, and a "movie" view.
@@ -26,7 +28,7 @@ This project is written in ES2015+ JavaScript, and bundled for production using 
 
 To install all development dependencies, run `npm install` from the project root.
 
-As a pure single page app, no server is required, although a simple [Express](https://expressjs.com/) development server is included to provide a catch-all wildcard route on `localhost:3000`. As the application implements real URLs, this is a requirement if you wish to navigate directly to particular application views and states. In production on AWS S3 however, this is achieved via a wildcard-friendly static file server.
+As a pure single page app, no server is required, although a simple [Express](https://expressjs.com/) development server is included to provide a catch-all wildcard route on `localhost:3000`. As the application implements real URLs, this is a requirement if you wish to navigate directly to particular application views and states. In [production](moviebrowser.kunkalabs.com) on AWS S3 however, this is achieved via a wildcard-friendly static file server.
 
 To start the development server, run `npm start` from the project root.
 
