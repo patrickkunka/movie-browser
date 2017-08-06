@@ -1,6 +1,6 @@
 # Movie Browser
 
-A simple UI for searching [The Movie Database](https://www.themoviedb.org).
+A simple UI for searching [themoviedb.org](https://www.themoviedb.org)'s API.
 
 The app can be viewed at [moviebrowser.kunkalabs.com](moviebrowser.kunkalabs.com).
 
@@ -20,7 +20,9 @@ Rather than trying to recreate any specific framework, the above ideas and conce
 
 For example, in lieu of a rich templating language like JSX, views are composed using a "layout tree" (`./src/layout.js`), which also provides a high-level visualisation of the application view structure.
 
-Similarly, local component state was not critical for this application, so components mostly interact directly with the top-level application state, with the option to receive a parent components "props" if needed.
+The rendering algorithm used to traverse the layout tree (`./src/generic/Renderer.js`) is fairly simple and does not, for example, include functionality such as virtual DOM diffing or list rendering optimisation, which keeps it relatively light weight. It is still fairly efficient due to the nature of the layout tree where any component and its subtree can be independently re-rendered and replaced in reaction to a change of application state. Components may implement a `shouldUpdate()` hook to diff incoming state and ensure that only the minimal amount of DOM is updated on state change.
+
+Local component state was not critical for this application, so components mostly interact directly with the top-level application state, with the option to receive a parent components "props" if needed.
 
 ## Development
 
@@ -56,13 +58,13 @@ To run the unit tests, run `npm test` from the project root.
 
 ## Notes
 
-- All source code is 100% my own work. As well as taking inspiration from several popular front-end frameworks and tools, some ideas have also been adapted from my work on [Colony](https://www.wearecolony.com)'s CortexJS framework. These include the "layout tree" idea, and the declarative component event-binding pattern.
+- All source code is 100% my own work and written from scratch for the project. As well as taking inspiration from several popular front-end frameworks and tools, some ideas have also been adapted from my work on [Colony](https://www.wearecolony.com)'s CortexJS framework. These include the "layout tree" idea, and the declarative component event-binding pattern.
 
 - One console log has been left in (at `./src/generic/StateManager.js#L94`) to indicate which actions are being applied to the application state and when.
 
 - The entire application including all generic components is **55KB** minified (**9KB** GZipped).
 
-- At present, the application has been built for and tested on the latest version of Chrome only. Wider browser support could be easily enabled via the addition of the necessary polyfills (e.g. fetch) and CSS autoprefixing.
+- At present, the application has been built for and tested on the latest version of Chrome only (desktop and mobile). Wider browser support could be easily enabled via the addition of the necessary polyfills (e.g. fetch) and CSS autoprefixing.
 
 - The original intention was for the "movie" view to be accessible by slug (e.g. `/:movieSlug/`) for nicer human readable URLs. However, it seems that the TMDB `/movies` API can only be queried by ID, hence the `/:id/` URL structure.
 

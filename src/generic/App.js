@@ -5,7 +5,7 @@ import Renderer     from './Renderer';
 
 /**
  * A wrapper class holding discreet instances of an "app",
- * providing plumping between internal services and the primary
+ * providing plumbing between internal services and the primary
  * consumer entry point.
  */
 
