@@ -12,9 +12,10 @@ class SearchForm extends Component {
         super(...arguments);
 
         this.props.hasTyped = false;
+        this.props.focussedSuggestionIndex = -1;
 
         this.configure({
-            refs: ['input'],
+            refs: ['input', 'suggestions'],
             events: [
                 {
                     ref: 'root',
@@ -25,7 +26,12 @@ class SearchForm extends Component {
                     ref: 'input',
                     on: ['keypress', 'input'],
                     bind: 'handleInputValueChange',
-                    debounce: 300
+                    debounce: 150
+                },
+                {
+                    ref: 'input',
+                    on: ['keydown'],
+                    bind: 'handleInputKeydown'
                 },
                 {
                     ref: 'input',
@@ -42,7 +48,7 @@ class SearchForm extends Component {
      */
 
     shouldUpdate(nextState) {
-        return this.state.results.query !== nextState.results.query;
+        return this.state.results.query !== nextState.results.query || this.state.view !== nextState.view;
     }
 
     /**
@@ -51,14 +57,23 @@ class SearchForm extends Component {
      */
 
     handleSubmit(e) {
+        const state = this.stateManager.getState();
         const query = encodeURIComponent(this.refs.input.value.trim());
 
-        e.preventDefault();
+        let destination = `/search/?query=${query}`;
 
         this.props.hasTyped = false;
 
+        if (this.props.focussedSuggestionIndex > -1) {
+            const suggestion = state.suggestions.items[this.props.focussedSuggestionIndex];
+
+            destination = `/${suggestion.id}/`;
+        }
+
+        e.preventDefault();
+
         this.stateManager.dispatch(beginNavigation)
-            .then(() => this.stateManager.navigate(`/search/?query=${query}`))
+            .then(() => this.stateManager.navigate(destination))
             .catch(err => console.error(err));
     }
 
@@ -66,15 +81,17 @@ class SearchForm extends Component {
      * @return {void}
      */
 
-    handleInputValueChange() {
+    handleInputValueChange(e) {
         const query = this.refs.input.value.trim();
         const state = this.stateManager.getState();
         const hasSuggestions = state.suggestions.items.length > 0;
 
         if (
             state.isFetchingSuggestions ||
+            state.isNavigating ||
             !hasSuggestions && query.length < MIN_AUTO_QUERY_LENGTH ||
-            (state.results.query === query && !this.props.hasTyped)
+            (state.results.query === query && !this.props.hasTyped) ||
+            e.key === 'Enter'
         ) {
             // Do not perform auto querying under any of the above conditions
 
@@ -93,6 +110,8 @@ class SearchForm extends Component {
 
                 // Auto-query new suggestions
 
+                this.props.focussedSuggestionIndex = -1;
+
                 return this.stateManager.dispatch(beginFetchSuggestions)
                     .then(() => this.stateManager.dispatch(receiveSuggestions, query));
             })
@@ -100,12 +119,52 @@ class SearchForm extends Component {
     }
 
     /**
+     * @param  {KeyboardEvent}
+     * @return {void}
+     */
+
+    handleInputKeydown(e) {
+        const state = this.stateManager.getState();
+        const maxIndex = state.suggestions.totalResults - 1;
+
+        if (!state.hasSuggestions) return;
+
+        switch (e.keyCode) {
+            case KEYCODE_DOWN:
+                this.props.focussedSuggestionIndex = Math.min(maxIndex, this.props.focussedSuggestionIndex + 1);
+
+                break;
+            case KEYCODE_UP:
+                this.props.focussedSuggestionIndex = Math.max(-1, this.props.focussedSuggestionIndex - 1);
+
+                break;
+            default:
+                return;
+        }
+
+        this.focusSuggestions();
+    }
+
+    /**
      * @return {void}
      */
 
     handleBlur() {
-        this.stateManager.dispatch(clearSuggestions)
+        new Promise(resolve => setTimeout(resolve, BLUR_DELAY))
+            .then(() => this.stateManager.dispatch(clearSuggestions))
             .catch(err => console.error(err));
+    }
+
+    /**
+     * @return {void}
+     */
+
+    focusSuggestions() {
+        this.queryDomRefs();
+
+        Array.from(this.refs.suggestions.children).forEach((el, i) => {
+            el.classList[i === this.props.focussedSuggestionIndex ? 'add' : 'remove'](FOCUSSED_CLASSNAME);
+        });
     }
 
     /**
@@ -135,5 +194,9 @@ class SearchForm extends Component {
 }
 
 const MIN_AUTO_QUERY_LENGTH = 3;
+const BLUR_DELAY            = 200;
+const KEYCODE_DOWN          = 40;
+const KEYCODE_UP            = 38;
+const FOCUSSED_CLASSNAME    = 'search-form__suggestion--focussed';
 
 export default SearchForm;

@@ -6,7 +6,7 @@ class Suggestions extends Component {
     }
 
     render(state, props, children) {
-        return `<div class="search-form__suggestions">${children}</div>`;
+        return `<div class="search-form__suggestions" data-ref="suggestions">${children}</div>`;
     }
 }
 

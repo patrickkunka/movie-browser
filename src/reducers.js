@@ -62,7 +62,7 @@ const rootReducer = (prevState, action) => {
 
             nextState.suggestions.query = action.query;
             nextState.suggestions.items = action.suggestions.results.slice(0, MAX_SUGGESTIONS);
-            nextState.suggestions.totalResults = action.suggestions.length;
+            nextState.suggestions.totalResults = nextState.suggestions.items.length;
             nextState.suggestions.itemsPerPage = MAX_SUGGESTIONS;
 
             return nextState;

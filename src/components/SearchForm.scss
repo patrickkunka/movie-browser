@@ -57,7 +57,7 @@
     left: 0;
     right: 0;
     background: white;
-    box-shadow: 0 0 8px rgba(black, .1);
+    box-shadow: 0 3px 8px rgba(black, .1);
 }
 
 .search-form__suggestion {
@@ -71,7 +71,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    &:hover {
+    &:hover,
+    &.search-form__suggestion--focussed {
         background: $color-light-grey;
+    }
+
+    &:last-child {
+        border-bottom: 2px solid $color-light-grey;
     }
 }
