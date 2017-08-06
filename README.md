@@ -6,7 +6,7 @@ A simple UI for searching [The Movie Database](https://www.themoviedb.org).
 
 This project provides a means of searching for and browsing movies using the TMDB API. A simple user interface is implemented consisting of a "home" view, a "search results" view, and a "movie" view.
 
-The project is split into various business-logic specific UI components and services, and a collection of "generic" components, services and extensible base classes, which can be thought of as a mini framework upon which the application is built.
+The project is split into various business-logic specific UI components and services, and a collection of "generic" components (`./src/generic/`, services and extensible base classes, which can be thought of as a mini framework upon which the application is built.
 
 No third-party frameworks or UI libraries have been used, although several commonly used patterns are implemented:
 - Immutable state
@@ -30,7 +30,7 @@ As a pure single page app, no server is required, although a simple [Express](ht
 
 To start the development server, run `npm start` from the project root.
 
-All project source code is contained in the `./src` directory. Upon application build, a `./dist` directory is created housing the production assets, although this is gitignored.
+All project source code is contained in the `./src/` directory. Upon application build, a `./dist/` directory is created housing the production assets, although this is gitignored.
 
 To build the project, run `npm run build` from the project root.
 
