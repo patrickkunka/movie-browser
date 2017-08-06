@@ -57,3 +57,7 @@ To run the unit tests, run `npm test` from the project root.
 - The entire application including all generic components is 55KB minified (9KB GZipped).
 
 - At present, the application has been built for and tested on the latest version of Chrome only. Wider browser support could be easily enabled via the addition of various polyfills and CSS autoprefixing.
+
+- The original intention was for the "movie" view to be accessible by slug (e.g. `/:movieSlug/`), for nicer human readable URLs. However it currently seems that the TMDB movies API may only be queried by ID, hence the `/:id/` URL structure.
+
+- Both autocomplete (with keyboard control), and full paginated search results pages are implemented. Submit the search form to navigate to a results page.
