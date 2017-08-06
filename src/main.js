@@ -37,10 +37,10 @@ function removeLoader() {
 app.start(PATH)
     .then(removeLoader)
     .catch(err => {
-        removeLoader();
-
         switch (err.message) {
             case ERROR_INVALID_ROUTE:
+                removeLoader();
+
                 return app.stateManager.dispatch(handleError).then(() => app.attach());
             default:
                 console.error(err);
