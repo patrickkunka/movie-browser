@@ -53,7 +53,7 @@
     }
 }
 
-@include breakMin($break-small) {
+@include breakMin($break-mid) {
     .footer__attribution {
         margin-bottom: 0;
     }
