@@ -6,7 +6,7 @@ A simple UI for searching [The Movie Database](https://www.themoviedb.org).
 
 This project provides a means of searching for and browsing movies using the TMDB API. A simple user interface is implemented consisting of a "home" view, a "search results" view, and a "movie" view.
 
-The project is split into various business-logic specific UI components and services, and a collection of "generic" components (`./src/generic/`), services and extensible base classes, which can be thought of as a mini framework upon which the application is built.
+The project is split into various business-logic specific UI components and services, and a collection of "generic" components, services and extensible base classes (`./src/generic/`), which can be thought of as a mini framework upon which the application is built.
 
 No third-party frameworks or UI libraries have been used, although several commonly used patterns are implemented:
 - Immutable state
